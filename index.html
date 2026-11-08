@@ -1,107 +1,69 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#ffd21f">
-  <meta name="description" content="Татарск Такси — простой заказ поездки">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css">
-  <title>Татарск Такси</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffd21f"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><link rel="stylesheet" href="style.css">
+<title>Татарск Такси</title>
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <div class="brand"><span class="brand-mark">Т</span><span>Татарск <b>Такси</b></span></div>
-      <button class="round-btn" id="helpBtn" aria-label="Помощь">?</button>
-    </header>
+<div class="app-shell">
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">Т</span><span>Татарск <b>Такси</b></span></div>
+  <button class="role-switch" id="roleSwitch">Режим: Пассажир⌄</button>
+</header>
+<main>
+<section class="screen active" id="passengerScreen">
+  <div class="heading"><div class="eyebrow">ТАТАРСК И РЯДОМ</div><h1>Куда едем?</h1><p>Укажите маршрут и получите предложения.</p></div>
+  <form id="orderForm" class="card">
+    <div class="route-box">
+      <label class="route-field"><span class="dot green"></span><span class="field"><small>Откуда</small><input id="from" placeholder="Адрес подачи" required></span></label>
+      <div class="route-divider"></div>
+      <label class="route-field"><span class="dot yellow"></span><span class="field"><small>Куда</small><input id="to" placeholder="Куда вас отвезти?" required></span></label>
+    </div>
+    <div class="options-row">
+      <label class="option"><small>Когда</small><select id="when"><option>Сейчас</option><option>Позже</option></select></label>
+      <label class="option"><small>Пассажиры</small><select id="people"><option>1 пассажир</option><option>2 пассажира</option><option>3 пассажира</option><option>4 пассажира</option></select></label>
+    </div>
+    <label class="price-field"><span><b>Ваша цена</b><small>Можно оставить пустым</small></span><span class="price-input"><input id="price" type="number" min="1" placeholder="0"><b>₽</b></span></label>
+    <button class="main-button" type="submit">Найти водителя <span>→</span></button>
+  </form>
+  <div class="section-title"><h2>Предложения водителей</h2><span class="demo-tag">ТЕСТ</span></div>
+  <div id="offersList" class="stack"><div class="empty-state">Сначала создайте тестовый заказ — здесь появятся предложения.</div></div>
+  <div id="selectedBox" class="selected-box hidden"></div>
+</section>
 
-    <main>
-      <section class="screen active" id="orderScreen">
-        <div class="heading">
-          <div class="eyebrow">ТАТАРСК И РЯДОМ</div>
-          <h1>Куда едем?</h1>
-          <p>Укажите маршрут — остальное просто.</p>
-        </div>
+<section class="screen" id="driverScreen">
+  <div class="heading"><div class="eyebrow">КАБИНЕТ ВОДИТЕЛЯ</div><h1>Новые заказы</h1><p>Выберите заявку и предложите стоимость.</p></div>
+  <div class="driver-status"><span class="status-dot"></span><b>Тестовый режим</b><span>Вы не принимаете реальные поездки</span></div>
+  <div id="driverOrders" class="stack"></div>
+</section>
 
-        <form id="orderForm" class="order-card">
-          <div class="route-box">
-            <label class="route-field">
-              <span class="route-dot green"></span>
-              <span class="field-content">
-                <span class="field-label">Откуда</span>
-                <input id="from" autocomplete="street-address" placeholder="Адрес подачи" required>
-              </span>
-            </label>
-            <div class="route-divider"><span></span></div>
-            <label class="route-field">
-              <span class="route-dot yellow"></span>
-              <span class="field-content">
-                <span class="field-label">Куда</span>
-                <input id="to" placeholder="Куда вас отвезти?" required>
-              </span>
-            </label>
-          </div>
+<section class="screen" id="historyScreen">
+  <div class="heading"><div class="eyebrow">ТАТАРСК ТАКСИ</div><h1>Мои заказы</h1></div>
+  <div id="historyList" class="stack"><div class="empty-state">Пока заказов нет.</div></div>
+</section>
+</main>
+<nav class="tabbar">
+<button class="tab active" data-screen="passengerScreen"><span>⌖</span>Заказать</button>
+<button class="tab" data-screen="driverScreen"><span>🚕</span>Водитель</button>
+<button class="tab" data-screen="historyScreen"><span>▤</span>Заказы</button>
+</nav>
+</div>
 
-          <div class="options-row">
-            <label class="option">
-              <span class="option-icon">◷</span>
-              <span><small>Когда</small>
-                <select id="when"><option value="Сейчас">Сейчас</option><option value="Позже">Позже</option></select>
-              </span>
-            </label>
-            <label class="option">
-              <span class="option-icon">♙</span>
-              <span><small>Пассажиры</small>
-                <select id="people"><option>1 пассажир</option><option>2 пассажира</option><option>3 пассажира</option><option>4 пассажира</option></select>
-              </span>
-            </label>
-          </div>
-
-          <label class="price-field">
-            <span><b>Предложить цену</b><small>Необязательно</small></span>
-            <span class="price-input"><input id="price" type="number" min="1" inputmode="numeric" placeholder="0"><b>₽</b></span>
-          </label>
-
-          <button class="main-button" type="submit">Заказать такси <span>→</span></button>
-          <p class="quiet-note">Пока работает демонстрационный режим — заявка не отправляется водителям.</p>
-        </form>
-        <div class="bottom-hint"><span class="hint-icon">✓</span> Вы сами выбираете предложение водителя</div>
-      </section>
-
-      <section class="screen" id="ridesScreen">
-        <div class="heading"><div class="eyebrow">ВАШИ ПОЕЗДКИ</div><h1>Заказы</h1></div>
-        <div class="empty-card"><div class="empty-icon">🚕</div><h2>Пока заказов нет</h2><p>Когда оформите поездку, она появится здесь.</p><button class="secondary-button" data-go="order">Заказать такси</button></div>
-      </section>
-
-      <section class="screen" id="profileScreen">
-        <div class="heading"><div class="eyebrow">ТАТАРСК ТАКСИ</div><h1>Профиль</h1></div>
-        <div class="profile-card"><div class="profile-avatar">☺</div><div><b>Гость</b><p>Вход пока не требуется</p></div></div>
-        <div class="menu-card"><div class="menu-row"><span>☎</span><b>Помощь</b><span class="chevron">›</span></div><div class="menu-row"><span>ℹ</span><b>О приложении</b><span class="chevron">›</span></div></div>
-        <p class="quiet-note profile-note">Демонстрационная версия приложения.</p>
-      </section>
-    </main>
-
-    <nav class="tabbar" aria-label="Основная навигация">
-      <button class="tab active" data-tab="order"><span class="tab-icon">⌖</span><span>Заказать</span></button>
-      <button class="tab" data-tab="rides"><span class="tab-icon">▤</span><span>Заказы</span></button>
-      <button class="tab" data-tab="profile"><span class="tab-icon">♙</span><span>Профиль</span></button>
-    </nav>
-  </div>
-
-  <dialog id="resultDialog" class="result-dialog">
-    <div class="success-mark">✓</div>
-    <h2>Заказ оформлен</h2>
-    <p id="resultText"></p>
-    <div class="demo-warning">Это демонстрация. Реальные водители пока не получают заявки.</div>
-    <button class="main-button" id="dialogOk">Понятно</button>
-  </dialog>
-  <dialog id="helpDialog" class="result-dialog">
-    <div class="success-mark">?</div><h2>Нужна помощь?</h2>
-    <p>Заполните два адреса и нажмите «Заказать такси». В этой версии заказ только показывается на экране.</p>
-    <button class="main-button" id="helpOk">Понятно</button>
-  </dialog>
-  <script src="app.js"></script>
-</body>
-</html>
+<dialog id="roleDialog" class="modal">
+<h2>Выберите режим</h2><p>Можно переключаться между режимами для проверки приложения.</p>
+<button class="role-choice" data-role="passenger">Я пассажир</button>
+<button class="role-choice" data-role="driver">Я водитель</button>
+<button class="text-button" id="roleCancel">Отмена</button>
+</dialog>
+<dialog id="offerDialog" class="modal">
+<h2>Предложить цену</h2><p id="offerRoute"></p>
+<label class="modal-input">Ваша цена, ₽<input id="driverPrice" type="number" min="1" inputmode="numeric" placeholder="Например, 350"></label>
+<button class="main-button" id="sendOffer">Отправить предложение</button>
+<button class="text-button" id="offerCancel">Отмена</button>
+</dialog>
+<dialog id="infoDialog" class="modal">
+<div class="success-mark">✓</div><h2 id="infoTitle">Готово</h2><p id="infoText"></p><button class="main-button" id="infoOk">Понятно</button>
+</dialog>
+<script src="app.js"></script>
+</body></html>

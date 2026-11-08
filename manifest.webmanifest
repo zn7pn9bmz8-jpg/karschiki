@@ -1,11 +1,1 @@
-{
-  "name": "Татарск Такси",
-  "short_name": "Такси",
-  "lang": "ru",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#f7f7f7",
-  "theme_color": "#ffd21f",
-  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
-}
+{"name":"Татарск Такси","short_name":"Такси","lang":"ru","start_url":"./","scope":"./","display":"standalone","background_color":"#f7f7f7","theme_color":"#ffd21f","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
