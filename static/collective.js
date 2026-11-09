@@ -22,7 +22,10 @@
     status.classList.toggle('is-error', error);
   }
   function headers(extra = {}) {
-    return { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', ...extra };
+    // Publishable keys (sb_publishable_...) are API keys, not JWTs.
+    // Send them via apikey only; putting one in Authorization: Bearer can trigger
+    // JWT parsing errors in the Supabase/PostgREST stack.
+    return { apikey: key, 'Content-Type': 'application/json', ...extra };
   }
   async function request(path, options = {}) {
     const response = await fetch(`${url}/rest/v1/${path}`, { ...options, headers: headers(options.headers || {}) });
