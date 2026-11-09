@@ -120,3 +120,80 @@ footer{text-align:center;color:#77829b;font-size:8px;letter-spacing:1px;margin-t
 .bet-presets button.is-selected{background:linear-gradient(100deg,#ff526c,#d72e60);color:#fff;border-color:#ff6a83}
 .bet-selector button:disabled{opacity:.4}
 @media(max-width:360px){.bet-selector{padding:11px}.bet-selector-head{font-size:12px}.potential-label{font-size:10px}.bet-presets{gap:5px}.bet-presets button{font-size:10px!important}.bet-stepper{grid-template-columns:46px minmax(0,1fr) 46px}}
+
+
+/* v11.1: compact bet selector + stable mobile browser layout */
+.bet-selector {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding: 9px 11px !important;
+  margin: 10px 0 0 !important;
+}
+.bet-selector-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 6px !important;
+  margin: 0 0 7px !important;
+  font-size: 12px !important;
+  line-height: 1.25 !important;
+}
+.potential-label { font-size: 10px !important; white-space: nowrap !important; }
+.potential-label strong { font-size: 12px !important; }
+.bet-stepper {
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, 1fr) 42px !important;
+  gap: 6px !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+.bet-step {
+  width: 42px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 0 !important;
+  font-size: 23px !important;
+  line-height: 1 !important;
+}
+.bet-current {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 38px !important;
+  font-size: 22px !important;
+  line-height: 1 !important;
+}
+.bet-presets {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin-top: 7px !important;
+}
+.bet-presets button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 29px !important;
+  min-height: 29px !important;
+  padding: 0 2px !important;
+  font-size: 10px !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+}
+@media (max-width: 390px) {
+  .bet-selector { padding: 8px 9px !important; }
+  .bet-selector-head { font-size: 11px !important; }
+  .potential-label { font-size: 9px !important; }
+  .potential-label strong { font-size: 11px !important; }
+  .bet-stepper { grid-template-columns: 38px minmax(0, 1fr) 38px !important; gap: 5px !important; }
+  .bet-step { width: 38px !important; height: 36px !important; min-height: 36px !important; }
+  .bet-current { height: 36px !important; font-size: 20px !important; }
+  .bet-presets { gap: 5px !important; margin-top: 6px !important; }
+  .bet-presets button { height: 27px !important; min-height: 27px !important; font-size: 9px !important; }
+}
