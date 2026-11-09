@@ -96,3 +96,13 @@ footer{text-align:center;color:#77829b;font-size:8px;letter-spacing:1px;margin-t
 .collective-player>strong{font-size:14px;white-space:nowrap;color:#65d6a5}
 .collective-empty{margin:15px 0 3px;color:var(--muted);font-size:13px;text-align:center}
 @media(max-width:360px){.collective-panel{padding:12px}.collective-join-form button{padding:0 9px;font-size:9px}}
+
+
+/* Точечные правки по запросу: отступ в окне вывода и размер заголовка рейтинга. */
+.withdraw-dialog p {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.collective-heading h2 { font-size: 15px; }
