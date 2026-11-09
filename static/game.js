@@ -83,13 +83,17 @@
       try { node.stop(now + 0.35); } catch (_) {}
     });
   }
+  const collectAudio = new Audio("./payment_succes.mp3");
+  collectAudio.preload = "auto";
   function playCollectSound() {
     stopEngineSound();
-    // Оригинальный короткий звук подтверждения начисления: мягкий щелчок и три ясные ноты.
-    tone(520, 0.045, "triangle", 0.035, 390);
-    tone(740, 0.09, "sine", 0.065, 820, 0.045);
-    tone(990, 0.11, "sine", 0.075, 1120, 0.13);
-    tone(1480, 0.075, "sine", 0.035, 1320, 0.22);
+    if (!soundEnabled) return;
+    try {
+      collectAudio.pause();
+      collectAudio.currentTime = 0;
+      const playback = collectAudio.play();
+      if (playback && typeof playback.catch === "function") playback.catch(() => {});
+    } catch (_) {}
   }
   function playCrashSound() {
     stopEngineSound();
@@ -248,7 +252,7 @@
       // при 2.00x это ровно одна ставка, без повторного возврата самой ставки.
       // Используем тот же коэффициент с двумя знаками, который видит игрок.
       const settledMultiplier = Number(multiplier.toFixed(2));
-      const earned = Math.max(0, Math.floor(BET * (settledMultiplier - 1) + 1e-9));
+      const earned = Math.max(0, Math.floor(BET * (settledMultiplier - 1) * 0.5 + 1e-9));
       balance += earned;
       best = Math.max(best, settledMultiplier);
       $("status").textContent = `ЗАЧИСЛЕНО: +${fmt(earned)} РУБЛЕЙ`;
@@ -316,7 +320,7 @@
     balance -= BET;
     render();
     multiplier = 1;
-    crashAt = 1.15 + Math.random() * 28.85;
+    crashAt = 1.15 + Math.random() * (7 - 1.15);
     startTime = performance.now();
     active = true;
     playBtn.disabled = true;
