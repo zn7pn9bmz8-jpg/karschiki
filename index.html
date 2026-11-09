@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0d12">
+<title>КТО №1 — рейтинг России</title>
+<style>
+:root{--bg:#0b0d12;--panel:#131722;--panel2:#191f2c;--line:#293143;--text:#f4f6fb;--muted:#929bad;--gold:#ffc857;--green:#65d6a5;--red:#ff6e78}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#252b3c 0,#0b0d12 55%);color:var(--text);font:15px/1.45 Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer}
+.wrap{max-width:1120px;margin:auto;padding:22px 18px 60px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:5px 0 22px;border-bottom:1px solid var(--line)}
+.logo{font-weight:1000;letter-spacing:-1.5px;font-size:23px}.logo span{color:var(--gold)}
+.tag{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.wallet{border:1px solid #574a2e;background:#241f15;color:var(--gold);padding:9px 13px;border-radius:12px;font-weight:800}
+.hero{padding:38px 0 24px;text-align:center}.eyebrow{color:var(--gold);font-size:11px;letter-spacing:3px;font-weight:900}
+h1{font-size:clamp(36px,8vw,66px);line-height:.98;letter-spacing:-3px;margin:12px 0}
+.hero p{color:var(--muted);max-width:570px;margin:14px auto 20px}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:850;background:var(--gold);color:#17130b;box-shadow:0 5px 0 #9d742a}
+.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line);box-shadow:none}
+.btn.small{padding:8px 11px;font-size:13px;box-shadow:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:25px 0}
+.stat{background:linear-gradient(145deg,#171d29,#11151e);border:1px solid var(--line);border-radius:15px;padding:15px;text-align:center}
+.stat b{display:block;font-size:22px}.stat span{color:var(--muted);font-size:12px}
+.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr);gap:16px;align-items:start}
+.panel{background:rgba(19,23,34,.92);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.panelhead{display:flex;justify-content:space-between;align-items:center;padding:17px 18px;border-bottom:1px solid var(--line)}
+.panelhead h2{margin:0;font-size:17px}.sub{font-size:11px;color:var(--muted)}
+.tabs{display:flex;gap:5px;padding:12px 14px;border-bottom:1px solid var(--line);overflow:auto}
+.tab{white-space:nowrap;border:1px solid transparent;background:transparent;color:var(--muted);padding:7px 11px;border-radius:9px;font-size:12px}
+.tab.active{background:#292638;border-color:#55472c;color:var(--gold)}
+.row{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:11px;align-items:center;padding:13px 16px;border-bottom:1px solid #222938}
+.row:last-child{border-bottom:0}.rank{font-weight:900;color:var(--muted);text-align:center}.rank.gold{color:var(--gold)}
+.avatar{width:37px;height:37px;border-radius:11px;background:linear-gradient(135deg,#434d67,#20283a);display:grid;place-items:center;font-weight:900}
+.person{display:flex;align-items:center;gap:10px;min-width:0}.name{font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.title{font-size:11px;color:var(--muted)}
+.score{text-align:right;font-weight:900}.score small{display:block;color:var(--muted);font-weight:500;font-size:10px}
+.me{background:linear-gradient(90deg,#342b1c55,transparent)}
+.side{padding:18px}.side h2{font-size:17px;margin:0 0 5px}.side p{color:var(--muted);font-size:13px;margin:0 0 16px}
+.profilebox{border:1px solid #5b4b2e;background:linear-gradient(145deg,#292315,#171a22);border-radius:15px;padding:16px;margin:14px 0}
+.profiletop{display:flex;align-items:center;gap:12px}.bigavatar{width:52px;height:52px;border-radius:14px;background:#4a402b;display:grid;place-items:center;font-size:22px}
+.level{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:1px}.profilebox h3{margin:3px 0;font-size:20px}
+.progress{height:7px;background:#36313a;border-radius:20px;overflow:hidden;margin:14px 0 6px}.progress i{display:block;width:72%;height:100%;background:linear-gradient(90deg,#bd8733,#ffe08a)}
+.progresslabel{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
+.sectionlabel{margin:18px 0 9px;font-size:11px;letter-spacing:1.5px;color:var(--muted);font-weight:900}
+.upgrades{display:grid;gap:8px}.upgrade{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px;background:var(--panel2);border:1px solid var(--line);border-radius:12px}
+.upgrade b{display:block;font-size:13px}.upgrade small{color:var(--muted);font-size:11px}
+.cost{color:var(--gold);font-weight:900;white-space:nowrap}
+.notice{font-size:11px;color:var(--muted);padding:12px 14px;border-top:1px solid var(--line)}
+.challenge{margin-top:16px;padding:15px;border:1px solid var(--line);border-radius:14px;background:#10141d}
+.challenge strong{display:block;margin-bottom:5px}.challenge p{margin:0 0 12px}
+.modalback{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}
+.modal{width:min(420px,100%);background:#171d29;border:1px solid var(--line);border-radius:18px;padding:21px}
+.modal h2{margin:0 0 7px}.modal p{color:var(--muted);font-size:13px}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0e121a;color:white;margin:8px 0 13px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#252b38;border:1px solid #485268;border-radius:12px;padding:11px 16px;display:none;z-index:8;box-shadow:0 10px 35px #0008}
+footer{text-align:center;color:#697386;font-size:11px;padding:25px 0}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.hero{padding-top:30px}.stats{gap:7px}.stat{padding:12px 5px}.stat b{font-size:19px}.wrap{padding-left:13px;padding-right:13px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div><div class="logo">КТО <span>№1</span></div><div class="tag">Территория амбиций</div></div><div class="wallet">◆ <span id="balance">1 250</span> монет</div></header>
+<section class="hero">
+<div class="eyebrow">ЕДИНЫЙ РЕЙТИНГ РОССИИ</div>
+<h1>ТВОЁ ИМЯ.<br><span style="color:var(--gold)">ТВОЁ МЕСТО.</span></h1>
+<p>Прокачивай профиль, собирай достижения и поднимайся выше. Здесь каждый может заявить о себе.</p>
+<div class="actions"><button class="btn" id="challengeBtn">⚔ Бросить вызов</button><button class="btn secondary" id="profileBtn">Мой профиль</button></div>
+</section>
+<section class="stats">
+<div class="stat"><b>128 490</b><span>игроков в рейтинге</span></div><div class="stat"><b id="myRank">№ 4 281</b><span>твоё место</span></div><div class="stat"><b id="myPower">1 250</b><span>очки влияния</span></div>
+</section>
+<div class="layout">
+<main class="panel">
+<div class="panelhead"><div><h2>Главный рейтинг</h2><div class="sub">Соревнование за статус</div></div><span class="level">ТОП РОССИИ</span></div>
+<div class="tabs"><button class="tab active" data-kind="influence">Влияние</button><button class="tab" data-kind="wealth">Капитал</button><button class="tab" data-kind="prestige">Престиж</button><button class="tab" data-kind="achievements">Достижения</button></div>
+<div id="leaderboard">
+<div class="row"><div class="rank gold">1</div><div class="person"><div class="avatar">DL</div><div><div class="name">DARK LORD</div><div class="title">Легенда рейтинга</div></div></div><div class="score">9 845 000<small>влияния</small></div></div>
+<div class="row"><div class="rank gold">2</div><div class="person"><div class="avatar">К</div><div><div class="name">КОРОЛЬ</div><div class="title">Первый среди равных</div></div></div><div class="score">9 420 000<small>влияния</small></div></div>
+<div class="row"><div class="rank">3</div><div class="person"><div class="avatar">Б</div><div><div class="name">БЕЗУМНЫЙ</div><div class="title">Титан</div></div></div><div class="score">8 970 000<small>влияния</small></div></div>
+<div class="row me"><div class="rank">4 281</div><div class="person"><div class="avatar">ТЫ</div><div><div class="name">ТВОЙ АККАУНТ</div><div class="title">Новичок · это демо-профиль</div></div></div><div class="score" id="tableScore">1 250<small>влияния</small></div></div>
+</div>
+<div class="notice">Демонстрационные игроки и цифры. Реальный общий рейтинг появится после подключения сервера.</div>
+</main>
+<aside class="panel side">
+<h2>Твой профиль</h2><p>Каждое улучшение меняет твои показатели.</p>
+<div class="profilebox"><div class="profiletop"><div class="bigavatar">ТЫ</div><div><div class="level">НОВЫЙ ИГРОК</div><h3 id="nick">ТВОЙ НИК</h3><div class="sub">Участник с сегодняшнего дня</div></div></div>
+<div class="progress"><i id="progressBar"></i></div><div class="progresslabel"><span>До следующего уровня</span><span id="progressText">72%</span></div></div>
+<div class="sectionlabel">ПРОКАЧКА АККАУНТА</div>
+<div class="upgrades">
+<div class="upgrade"><div><b>Усилить влияние</b><small>+100 очков влияния</small></div><button class="btn small buy" data-cost="100" data-add="100">100 ◆</button></div>
+<div class="upgrade"><div><b>Премиум-рамка</b><small>Выделяет профиль</small></div><button class="btn small buy" data-cost="250" data-add="0">250 ◆</button></div>
+<div class="upgrade"><div><b>Титул «Амбициозный»</b><small>Особый статус в профиле</small></div><button class="btn small buy" data-cost="400" data-add="50">400 ◆</button></div>
+</div>
+<div class="challenge"><strong>Кто следующий?</strong><p class="sub">Выбери соперника и отправь ему ссылку на свой профиль.</p><button class="btn secondary small" id="shareBtn">Поделиться профилем ↗</button></div>
+</aside>
+</div>
+<footer>КТО №1 · Концепт демонстрационной версии · Все монеты виртуальные, реальные платежи отключены.</footer>
+</div>
+<div class="modalback" id="modal"><div class="modal"><h2>Бросить вызов</h2><p>Введи ник соперника — в полной версии ему придёт приглашение сравнить ваши показатели.</p><input id="opponent" placeholder="Например, KING_777"><div class="actions" style="justify-content:flex-start"><button class="btn" id="sendChallenge">Создать вызов</button><button class="btn secondary" id="closeModal">Отмена</button></div></div></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+let balance=1250, influence=1250, prestige=320, wealth=870, achievements=4;
+const $=s=>document.querySelector(s);
+function fmt(n){return Math.round(n).toLocaleString('ru-RU')}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display='none',2600)}
+function update(){ $('#balance').textContent=fmt(balance);$('#myPower').textContent=fmt(influence);$('#tableScore').innerHTML=fmt(influence)+'<small>влияния</small>';$('#progressBar').style.width=(72+(influence-1250)/10000*20)+'%';$('#progressText').textContent=Math.min(99,72+Math.floor((influence-1250)/10000*20))+'%';}
+document.querySelectorAll('.buy').forEach(b=>b.addEventListener('click',()=>{
+ const cost=+b.dataset.cost, add=+b.dataset.add;
+ if(balance<cost){toast('Не хватает виртуальных монет. Это демонстрационный баланс.');return;}
+ balance-=cost;influence+=add;if(b.textContent.includes('250'))prestige+=30;if(b.textContent.includes('400'))achievements++;
+ update();toast(add?`Улучшение куплено: +${add} влияния`:'Предмет добавлен в демо-профиль');
+}));
+document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));tab.classList.add('active');
+ const kind=tab.dataset.kind;const labels={influence:'влияния',wealth:'капитала',prestige:'престижа',achievements:'достижений'};
+ const vals={influence:'9 845 000',wealth:'7 210 000',prestige:'985 000',achievements:'12 480'};
+ document.querySelectorAll('#leaderboard .score').forEach((el,i)=>{const v=i===3?({influence:fmt(influence),wealth:fmt(wealth),prestige:fmt(prestige),achievements:fmt(achievements)}[kind]):vals[kind];el.innerHTML=v+'<small>'+labels[kind]+'</small>';});
+}));
+$('#challengeBtn').onclick=()=>$('#modal').style.display='flex';
+$('#closeModal').onclick=()=>$('#modal').style.display='none';
+$('#sendChallenge').onclick=()=>{const n=$('#opponent').value.trim();if(!n){toast('Сначала введи ник соперника');return;}$('#modal').style.display='none';toast('Демо-вызов для '+n+' создан');$('#opponent').value='';};
+$('#profileBtn').onclick=()=>{document.querySelector('.side').scrollIntoView({behavior:'smooth',block:'center'});toast('Это твой демонстрационный профиль');};
+$('#shareBtn').onclick=()=>{const url=location.href.split('#')[0]+'#profile-demo';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>toast('Ссылка скопирована')).catch(()=>toast('Ссылка для демо: '+url));}else toast('Ссылка для демо: '+url);};
+update();
+})();
+</script>
+</body>
+</html>
