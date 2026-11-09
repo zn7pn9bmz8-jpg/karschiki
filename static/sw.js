@@ -1,4 +1,4 @@
-const CACHE_NAME = "karschiki-static-v1";
+const CACHE_NAME = "karschiki-static-v2";
 const CORE = ["./", "./index.html", "./style.css", "./game.js", "./collective.js", "./collective-config.js", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/apple-touch-icon.png"];
 
 self.addEventListener("install", event => {

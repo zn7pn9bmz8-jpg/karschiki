@@ -86,6 +86,21 @@
       outline: none;
     }
   </style>
+
+  <style>
+    /* Общая строка ввода: поле и кнопка остаются на одной линии. */
+    .promo-row { display:flex!important; flex-wrap:nowrap!important; align-items:stretch!important; gap:8px!important; }
+    .promo-row input { flex:1 1 0!important; width:0!important; min-width:0!important; height:48px!important; font-size:16px!important; }
+    .promo-row button { flex:0 0 116px!important; width:116px!important; min-width:116px!important; height:48px!important; padding:0 4px!important; font-size:9px!important; line-height:1!important; letter-spacing:.25px!important; white-space:nowrap!important; overflow-wrap:normal!important; word-break:normal!important; }
+    .collective-join-form { display:flex!important; flex-wrap:nowrap!important; align-items:stretch!important; gap:8px!important; width:100%!important; }
+    .collective-join-form input { flex:1 1 0!important; width:0!important; min-width:0!important; height:48px!important; box-sizing:border-box!important; padding:0 12px!important; font-size:16px!important; }
+    .collective-join-form button { flex:0 0 132px!important; width:132px!important; min-width:132px!important; height:48px!important; box-sizing:border-box!important; padding:0 5px!important; font-size:9px!important; line-height:1!important; letter-spacing:.25px!important; white-space:nowrap!important; }
+    @media (max-width:360px) {
+      .promo-row button { flex-basis:108px!important; width:108px!important; min-width:108px!important; font-size:8px!important; }
+      .collective-join-form button { flex-basis:122px!important; width:122px!important; min-width:122px!important; font-size:8px!important; }
+    }
+  </style>
+
 </head>
 <body>
   <main class="app">
@@ -258,7 +273,7 @@
       });
     })();
   </script>
-  <script src="game.js?v=20261109-5"></script>
+  <script src="game.js?v=20261109-6"></script>
   <script src="collective-config.js?v=1"></script>
   <script src="collective.js?v=1"></script>
   <script>
