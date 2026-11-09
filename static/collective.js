@@ -40,7 +40,7 @@
   async function loadRanking() {
     if (!configured || !joined) return;
     try {
-      const query = 'game_rounds?select=player_id,player_name,multiplier,collected,created_at&order=created_at.desc&limit=2000';
+      const query = 'game_rounds?select=player_id,player_name,multiplier,collected,bet_amount,earned,created_at&order=created_at.desc&limit=2000';
       const [rows, registered] = await Promise.all([
         request(query),
         request('players?select=player_id,player_name&order=created_at.asc&limit=500')
@@ -52,7 +52,11 @@
         item.name = row.player_name || item.name;
         item.rounds++;
         item.best = Math.max(item.best, Number(row.multiplier) || 0);
-        if (row.collected) { item.wins++; item.earned += Math.floor(300 * (Number(row.multiplier) || 1)); }
+        if (row.collected) {
+          item.wins++;
+          const legacyEarned = Math.floor((Number(row.bet_amount) || 300) * ((Number(row.multiplier) || 1) - 1) * (5 / 6) + 1e-9);
+          item.earned += row.earned == null ? Math.max(0, legacyEarned) : (Number(row.earned) || 0);
+        }
         stats.set(row.player_id, item);
       }
       const players = [...stats.values()].sort((a,b) => b.earned - a.earned || b.best - a.best || b.wins - a.wins);
@@ -104,7 +108,7 @@
       await request('game_rounds', {
         method: 'POST',
         headers: { Prefer: 'return=minimal' },
-        body: JSON.stringify({ player_id: playerId, player_name: playerName, multiplier: Number(detail.multiplier) || 1, collected: !!detail.collected })
+        body: JSON.stringify({ player_id: playerId, player_name: playerName, multiplier: Number(detail.multiplier) || 1, collected: !!detail.collected, bet_amount: Math.max(1, Math.floor(Number(detail.bet) || 300)), earned: Math.max(0, Math.floor(Number(detail.earned) || 0)) })
       });
       await loadRanking();
     } catch (error) {

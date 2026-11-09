@@ -305,6 +305,8 @@
   `;
   document.head.appendChild(crashStyle);
 
+  function settledMultiplierForRating() { return Number(multiplier.toFixed(2)); }
+
   function finish(collected) {
     active = false;
     cancelAnimationFrame(raf);
@@ -333,7 +335,7 @@
     render();
     // Отдельное событие для общего рейтинга; игровая логика и баланс не меняются.
     window.dispatchEvent(new CustomEvent("karshiki:round-finished", {
-      detail: { multiplier, collected: !!collected }
+      detail: { multiplier: settledMultiplierForRating(), collected: !!collected, bet: BET, earned: collected ? Math.max(0, Math.floor(BET * (Number(multiplier.toFixed(2)) - 1) * (5 / 6) + 1e-9)) : 0 }
     }));
   }
   function tick(now) {
