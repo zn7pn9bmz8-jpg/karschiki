@@ -83,26 +83,43 @@
       try { node.stop(now + 0.35); } catch (_) {}
     });
   }
-  const collectAudio = new Audio("./payment_succes.mp3");
-  collectAudio.preload = "auto";
-  collectAudio.volume = 1;
-  collectAudio.load();
+  // Звук получения очков декодируется в AudioBuffer и воспроизводится
+  // через общий Web Audio микшер игры, а не отдельным HTMLAudio-плеером.
+  let collectBuffer = null;
+  let collectBufferLoading = false;
+  function loadCollectSound() {
+    const ctx = initAudio();
+    if (!ctx || collectBuffer || collectBufferLoading) return;
+    collectBufferLoading = true;
+    fetch("./payment_succes.mp3", { cache: "force-cache" })
+      .then(response => {
+        if (!response.ok) throw new Error("Collect sound could not be loaded");
+        return response.arrayBuffer();
+      })
+      .then(data => ctx.decodeAudioData(data.slice(0)))
+      .then(buffer => { collectBuffer = buffer; })
+      .catch(() => { collectBuffer = null; })
+      .finally(() => { collectBufferLoading = false; });
+  }
   function playCollectSound() {
     stopEngineSound();
-    if (!soundEnabled) return;
-    try {
-      // Сбрасываем только MP3 и запускаем его непосредственно в обработчике
-      // нажатия «Забрать деньги», чтобы мобильный браузер не блокировал звук.
-      collectAudio.pause();
-      collectAudio.currentTime = 0;
-      const playback = collectAudio.play();
-      if (playback && typeof playback.catch === "function") {
-        playback.catch(() => {
-          // Не подменяем MP3 системным/WebAudio-звуком при отказе браузера.
-        });
-      }
-    } catch (_) {
-      // Ошибка воспроизведения не должна запускать другой звук.
+    const ctx = initAudio();
+    if (!ctx || !soundEnabled) return;
+    if (collectBuffer) {
+      const source = ctx.createBufferSource();
+      const gain = ctx.createGain();
+      source.buffer = collectBuffer;
+      gain.gain.setValueAtTime(0.22, ctx.currentTime);
+      source.connect(gain);
+      gain.connect(masterGain);
+      source.start(0);
+    } else {
+      // Резервный встроенный звук на случай, если файл ещё не успел декодироваться.
+      tone(520, 0.045, "triangle", 0.035, 390);
+      tone(740, 0.09, "sine", 0.065, 820, 0.045);
+      tone(990, 0.11, "sine", 0.075, 1120, 0.13);
+      tone(1480, 0.075, "sine", 0.035, 1320, 0.22);
+      loadCollectSound();
     }
   }
   function playCrashSound() {
@@ -141,7 +158,9 @@
   document.getElementById("withdrawOk")?.addEventListener("click", closeWithdraw);
   withdrawModal?.addEventListener("click", event => { if (event.target === withdrawModal) closeWithdraw(); });
   // Первый пользовательский жест разблокирует аудио в мобильных браузерах.
-  document.addEventListener("pointerdown", () => { if (soundEnabled) initAudio(); }, { once: true, passive: true });
+  document.addEventListener("pointerdown", () => {
+    if (soundEnabled) { initAudio(); loadCollectSound(); }
+  }, { once: true, passive: true });
   document.addEventListener("click", event => {
     const clickedButton = event.target.closest("button");
     // Для «Забрать деньги» играет только загруженный MP3 — общий короткий
@@ -265,7 +284,7 @@
       // при 2.00x это ровно одна ставка, без повторного возврата самой ставки.
       // Используем тот же коэффициент с двумя знаками, который видит игрок.
       const settledMultiplier = Number(multiplier.toFixed(2));
-      const earned = Math.max(0, Math.floor(BET * (settledMultiplier - 1) * (2 / 3) + 1e-9));
+      const earned = Math.max(0, Math.floor(BET * (settledMultiplier - 1) * (5 / 6) + 1e-9));
       balance += earned;
       best = Math.max(best, settledMultiplier);
       $("status").textContent = `ЗАЧИСЛЕНО: +${fmt(earned)} РУБЛЕЙ`;
