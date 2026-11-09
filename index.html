@@ -4,28 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#101c2a">
-<title>КТО №1 — твой статус</title>
+<title>РОССИЯ №1 — твой статус</title>
 <style>
 :root{
- --bg:#0d1722;--bg2:#122333;--panel:#172a3b;--panel2:#1d3447;--line:#2b4558;
- --text:#edf4f5;--muted:#91a8b5;--accent:#83e0cb;--accent2:#b5f4e6;
- --blue:#78b9e8;--soft:#d4e4e7;--danger:#ff9d9d;
+ --bg:#080a0d;--bg2:#0d1116;--panel:#11161c;--panel2:#171e26;--line:#28313b;
+ --text:#f0f2f4;--muted:#8b969f;--accent:#a6d7c5;--accent2:#c4eadb;
+ --blue:#91b9d3;--soft:#d7e0e4;--danger:#ff9d9d;
 }
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 12% -15%,#24495a 0,transparent 42%),radial-gradient(ellipse at 100% 20%,#173b48 0,transparent 36%),var(--bg);color:var(--text);font:15px/1.45 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;min-height:100vh}
+body{margin:0;background:radial-gradient(ellipse at 15% -20%,#1b2929 0,transparent 38%),radial-gradient(ellipse at 100% 10%,#171c22 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.45 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;min-height:100vh}
 button,input{font:inherit}button{cursor:pointer}
 .wrap{max-width:1060px;margin:auto;padding:20px 18px 48px}
 header{display:flex;align-items:center;justify-content:space-between;padding:5px 0 18px;border-bottom:1px solid #ffffff17}
 .brand{font-size:21px;font-weight:950;letter-spacing:-1px}.brand span{color:var(--accent)}
 .brand-sub{font-size:10px;letter-spacing:2.2px;color:var(--muted);text-transform:uppercase;margin-top:1px}
-.wallet{background:#1a3441;border:1px solid #3b6c70;color:var(--accent2);padding:9px 13px;border-radius:11px;font-weight:800;font-size:13px}
+.wallet{background:#1b2b29;border:1px solid #45665d;color:var(--accent2);padding:9px 13px;border-radius:11px;font-weight:800;font-size:13px}
 .intro{padding:24px 0 15px}.kicker{font-size:10px;letter-spacing:2.3px;color:var(--accent);font-weight:900}
 .intro h1{font-size:clamp(27px,5vw,43px);letter-spacing:-1.8px;line-height:1.05;margin:7px 0 6px}
 .intro p{color:var(--muted);margin:0;font-size:13px}
-.profile{display:grid;grid-template-columns:180px minmax(0,1fr);gap:22px;padding:20px;background:linear-gradient(115deg,#1b3445,#142636 72%);border:1px solid #3b5968;border-radius:20px;box-shadow:0 20px 55px #0003;position:relative;overflow:hidden}
+.profile{display:grid;grid-template-columns:180px minmax(0,1fr);gap:22px;padding:20px;background:linear-gradient(115deg,#171e24,#10151a 72%);border:1px solid #303a42;border-radius:20px;box-shadow:0 20px 55px #0003;position:relative;overflow:hidden}
 .profile:after{content:"";position:absolute;width:260px;height:260px;border:1px solid #83e0cb18;border-radius:50%;right:-95px;top:-150px;box-shadow:0 0 0 24px #83e0cb08,0 0 0 50px #83e0cb06;pointer-events:none}
 .avatar-wrap{position:relative;z-index:1}
-.avatar{width:100%;aspect-ratio:4/5;border-radius:12px;background:linear-gradient(145deg,#365d6b,#182c3b);border:1px solid #6b9a9b;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#c9f6eb;font-size:34px;font-weight:900;letter-spacing:-2px;position:relative}
+.avatar{width:100%;aspect-ratio:4/5;border-radius:12px;background:linear-gradient(145deg,#394c4b,#1c2729);border:1px solid #526c64;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#c9f6eb;font-size:34px;font-weight:900;letter-spacing:-2px;position:relative}
 .avatar img{width:100%;height:100%;object-fit:cover;display:none}
 .avatar-placeholder{font-size:39px}
 .upload{display:block;text-align:center;margin-top:9px;padding:8px 5px;border:1px solid #476777;border-radius:9px;color:var(--soft);font-size:11px;font-weight:700;background:#122735}
@@ -47,12 +47,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:5px
 .progress i{display:block;width:68%;height:100%;background:linear-gradient(90deg,#5db9b0,var(--accent2));border-radius:10px}
 .progress-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}
 .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:13px 0 18px}
-.metric{background:#142636;border:1px solid #294456;border-radius:13px;padding:12px 14px}
+.metric{background:#11171d;border:1px solid #28323b;border-radius:13px;padding:12px 14px}
 .metric span{display:block;color:var(--muted);font-size:10px;letter-spacing:1px;font-weight:800}
 .metric b{display:block;font-size:20px;margin-top:3px;letter-spacing:-.4px}
 .metric em{font-style:normal;color:var(--accent);font-size:10px}
 .columns{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.8fr);gap:14px;align-items:start}
-.panel{background:#132433eF;border:1px solid #294456;border-radius:16px;overflow:hidden}
+.panel{background:#10161c;border:1px solid #28323b;border-radius:16px;overflow:hidden}
 .panel-head{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-bottom:1px solid #ffffff12}
 .panel-head h2{font-size:15px;margin:0}.hint{font-size:10px;color:var(--muted)}
 .leader{display:grid;grid-template-columns:32px 34px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 15px;border-bottom:1px solid #ffffff0c}
@@ -69,23 +69,38 @@ header{display:flex;align-items:center;justify-content:space-between;padding:5px
 .side{padding:15px}
 .side h2{font-size:15px;margin:0 0 4px}.side-intro{color:var(--muted);font-size:11px;margin:0 0 13px}
 .section-title{font-size:9px;letter-spacing:1.5px;color:var(--muted);font-weight:900;margin:15px 0 8px}
-.upgrade{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#1a3041;border:1px solid #2c4b5e;border-radius:10px;padding:10px;margin:7px 0}
+.upgrade{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#191f25;border:1px solid #343f48;border-radius:10px;padding:10px;margin:7px 0}
 .upgrade b{display:block;font-size:11px}.upgrade small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
-.buy{border:1px solid #4a827c;background:#214c4b;color:var(--accent2);border-radius:8px;padding:7px 9px;font-size:10px;font-weight:900;white-space:nowrap}
+.buy{border:1px solid #638d7e;background:linear-gradient(180deg,#385c50,#29483f);color:#d5f1e5;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:900;white-space:nowrap}
 .buy:active,.primary:active{transform:translateY(1px)}
 .achievements{display:flex;gap:7px;flex-wrap:wrap}
 .achievement{border:1px solid #345263;background:#1a3040;color:#c3d8dc;border-radius:8px;padding:7px 9px;font-size:10px}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .primary,.secondary{border-radius:10px;padding:10px 13px;font-size:11px;font-weight:850}
-.primary{border:1px solid #9ae9d8;background:linear-gradient(135deg,#a8efdf,#6fc9ba);color:#10272b}
-.secondary{border:1px solid #3c5c6c;background:#1a3040;color:var(--soft)}
+.primary{border:1px solid #8bb9a8;background:linear-gradient(180deg,#b5d9c9,#8eb9a7);color:#14211d}
+.secondary{border:1px solid #3c5c6c;background:#1a2026;color:var(--soft)}
 .note{padding:11px 14px;color:#78909e;font-size:9px;line-height:1.5;border-top:1px solid #ffffff10}
 .modalback{position:fixed;inset:0;background:#061019d9;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}
 .modal{width:min(390px,100%);background:#172c3d;border:1px solid #456778;border-radius:16px;padding:20px;box-shadow:0 20px 70px #0008}
 .modal h2{font-size:18px;margin:0 0 5px}.modal p{font-size:12px;color:var(--muted)}
 .modal input{width:100%;padding:12px;border:1px solid #3d5b6c;border-radius:9px;background:#0f202d;color:white;margin:7px 0 12px}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#203d49;border:1px solid #54867e;color:#eafff9;border-radius:10px;padding:10px 14px;display:none;z-index:8;box-shadow:0 10px 35px #0008;font-size:12px;max-width:90%;text-align:center}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#263b34;border:1px solid #668d7a;color:#effff7;border-radius:10px;padding:10px 14px;display:none;z-index:8;box-shadow:0 10px 35px #0008;font-size:12px;max-width:90%;text-align:center}
 footer{text-align:center;color:#627b89;font-size:9px;padding:22px 0 0}
+
+.sound-toggle{border:1px solid #35413f;background:#151b1e;color:#a9c9bd;border-radius:9px;padding:8px 10px;font-size:9px;font-weight:900;letter-spacing:.5px}
+.profile{transition:border-color .25s,box-shadow .25s}
+.profile.level-up{border-color:#8dc9ad;box-shadow:0 0 0 1px #8dc9ad55,0 0 38px #7ac7a522}
+.buy,.primary,.secondary,.edit,.sound-toggle{transition:transform .12s ease,filter .15s ease,box-shadow .18s ease}
+.buy:hover,.primary:hover{filter:brightness(1.12);box-shadow:0 5px 22px #8cc8aa22}
+.buy:active,.primary:active,.secondary:active{transform:scale(.96);filter:brightness(1.18)}
+.pulse{animation:scorePulse .65s ease}
+@keyframes scorePulse{0%{transform:scale(1);color:#fff}35%{transform:scale(1.18);color:#d1ffe8;text-shadow:0 0 22px #9de5bd99}100%{transform:scale(1);color:#fff}}
+.float-up{position:fixed;z-index:20;pointer-events:none;color:#c8f1da;font-weight:950;font-size:19px;text-shadow:0 3px 20px #8bd5aa88;animation:floatUp 1.05s ease-out forwards}
+@keyframes floatUp{0%{opacity:0;transform:translateY(10px) scale(.75)}18%{opacity:1;transform:translateY(-5px) scale(1.1)}100%{opacity:0;transform:translateY(-75px) scale(1)}}
+.spark{position:fixed;width:5px;height:5px;border-radius:50%;background:#bcebd0;z-index:19;pointer-events:none;animation:spark .65s ease-out forwards}
+@keyframes spark{to{opacity:0;transform:translate(var(--x),var(--y)) scale(.15)}}
+@media(max-width:700px){.sound-toggle{padding:8px 7px;font-size:8px}.wallet{padding:8px 9px;font-size:11px}}
+
 @media(max-width:700px){.wrap{padding:14px 12px 35px}.profile{grid-template-columns:112px minmax(0,1fr);gap:13px;padding:13px;border-radius:16px}.avatar{aspect-ratio:3/4}.upload{font-size:9px;padding:7px 2px}.rankline{margin:13px 0 10px;gap:7px}.ranknum{font-size:36px}.score{font-size:22px}.quick{gap:7px}.metric{padding:10px 9px}.metric b{font-size:17px}.columns{grid-template-columns:1fr}.leader{padding:10px 12px}.intro{padding-top:20px}}
 @media(max-width:370px){.profile{grid-template-columns:96px minmax(0,1fr);gap:10px}.nick{font-size:20px}.ranknum{font-size:31px}.metric span{font-size:8px}.metric b{font-size:15px}}
 </style>
@@ -93,13 +108,13 @@ footer{text-align:center;color:#627b89;font-size:9px;padding:22px 0 0}
 <body>
 <div class="wrap">
 <header>
- <div><div class="brand">КТО <span>№1</span></div><div class="brand-sub">Территория амбиций</div></div>
- <div class="wallet">◆ <span id="balance">1 250</span> монет</div>
+ <div><div class="brand">РОССИЯ <span>№1</span></div><div class="brand-sub">Главный рейтинг страны</div></div>
+ <div style="display:flex;align-items:center;gap:8px"><button class="sound-toggle" id="soundToggle" aria-label="Включить звук">♫ ЗВУК: ВЫКЛ</button><div class="wallet">◆ <span id="balance">1 250</span> монет</div></div>
 </header>
 <section class="intro">
- <div class="kicker">ТВОЯ ПОЗИЦИЯ. ТВОЯ ИСТОРИЯ.</div>
- <h1>Ты уже в игре. Поднимайся выше.</h1>
- <p>Всё, чего ты добиваешься, складывается в один общий рейтинг.</p>
+ <div class="kicker">ЕДИНЫЙ РЕЙТИНГ РОССИИ</div>
+ <h1>Стань №1 в России.</h1>
+ <p>Твоё имя. Твой результат. Твоё место среди сильнейших.</p>
 </section>
 
 <section class="profile">
@@ -147,7 +162,7 @@ footer{text-align:center;color:#627b89;font-size:9px;padding:22px 0 0}
   <div class="actions"><button class="primary" id="challengeBtn">Бросить вызов</button><button class="secondary" id="shareBtn">Поделиться профилем ↗</button></div>
  </aside>
 </div>
-<footer>КТО №1 · Концепт интерфейса · Виртуальные монеты, без реальных платежей. Данные сохраняются только в этом браузере.</footer>
+<footer>РОССИЯ №1 · Концепт интерфейса · Виртуальные монеты, без реальных платежей. Данные сохраняются только в этом браузере.</footer>
 </div>
 <div class="modalback" id="modal"><div class="modal"><h2>Кому бросаем вызов?</h2><p>Введи ник соперника. В этой демоверсии вызов будет локальным.</p><input id="opponent" placeholder="Например, KING_777"><div class="actions"><button class="primary" id="sendChallenge">Создать вызов</button><button class="secondary" id="closeModal">Отмена</button></div></div></div>
 <div class="modalback" id="nickModal"><div class="modal"><h2>Твоё имя в рейтинге</h2><p>Выбери ник, по которому тебя будут узнавать.</p><input id="nickInput" maxlength="22" placeholder="Например, MISTER X"><div class="actions"><button class="primary" id="saveNick">Сохранить</button><button class="secondary" id="cancelNick">Отмена</button></div></div></div>
@@ -155,9 +170,30 @@ footer{text-align:center;color:#627b89;font-size:9px;padding:22px 0 0}
 <script>
 (()=>{
  const $=s=>document.querySelector(s), fmt=n=>Math.round(n).toLocaleString('ru-RU');
+ let soundOn=false, audioCtx=null;
+ function tone(freq=620,duration=.11,type='sine',volume=.035){
+  if(!soundOn)return;
+  try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();
+   const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,audioCtx.currentTime);
+   o.frequency.exponentialRampToValueAtTime(Math.max(90,freq*.72),audioCtx.currentTime+duration);
+   g.gain.setValueAtTime(volume,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);
+   o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration);
+  }catch(e){}
+ }
+ function successSound(){tone(520,.12,'sine',.045);setTimeout(()=>tone(780,.18,'triangle',.04),75);setTimeout(()=>tone(1040,.22,'sine',.025),145)}
+ function clickSound(){tone(360,.055,'triangle',.018)}
+ function celebrate(anchor,amount){
+  const r=anchor.getBoundingClientRect(),x=Math.min(innerWidth-45,Math.max(45,r.left+r.width/2)),y=Math.max(70,r.top);
+  const el=document.createElement('div');el.className='float-up';el.textContent=amount;el.style.left=(x-24)+'px';el.style.top=y+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),1100);
+  for(let i=0;i<12;i++){const s=document.createElement('i');s.className='spark';s.style.left=x+'px';s.style.top=(y+12)+'px';s.style.setProperty('--x',(Math.random()*130-65)+'px');s.style.setProperty('--y',(Math.random()*-100-15)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),700)}
+  $('#score').classList.remove('pulse');void $('#score').offsetWidth;$('#score').classList.add('pulse');
+  $('.profile').classList.add('level-up');setTimeout(()=>$('.profile').classList.remove('level-up'),900);
+ }
  let state={balance:1250,score:8450,wealth:12400,influence:740,achievements:4,nick:'ТВОЙ НИК',photo:''};
  try{const saved=JSON.parse(localStorage.getItem('kto1-profile-v2')||'{}');state={...state,...saved}}catch(e){}
  const save=()=>{try{localStorage.setItem('kto1-profile-v2',JSON.stringify(state))}catch(e){}};
+ $('#soundToggle').onclick=()=>{soundOn=!soundOn;$('#soundToggle').textContent=soundOn?'♫ ЗВУК: ВКЛ':'♫ ЗВУК: ВЫКЛ';if(soundOn)successSound();else clickSound()};
+ document.querySelectorAll('button').forEach(b=>{if(b.id!=='soundToggle')b.addEventListener('click',()=>clickSound())});
  const toast=msg=>{const t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(window.ktoToast);window.ktoToast=setTimeout(()=>t.style.display='none',2500)};
  function initials(s){return (s||'ТЫ').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'ТЫ'}
  function render(){
@@ -187,14 +223,14 @@ footer{text-align:center;color:#627b89;font-size:9px;padding:22px 0 0}
   if(cost===250){toast('Оформление добавлено в демо-профиль')}
   else if(cost===400){state.achievements++;$('#achievements').insertAdjacentHTML('beforeend','<span class="achievement">✧ Амбициозный</span>');toast('Титул получен')}
   else toast('Общий рейтинг вырос на '+add+' баллов');
-  save();render();
+  save();render();if(add){celebrate(b,'+'+add);successSound()}else{celebrate(b,'ГОТОВО');tone(680,.16,'triangle',.03)}
  });
  $('#challengeBtn').onclick=()=>$('#modal').style.display='flex';
  $('#closeModal').onclick=()=>$('#modal').style.display='none';
  $('#sendChallenge').onclick=()=>{const n=$('#opponent').value.trim();if(!n){toast('Введи ник соперника');return}$('#modal').style.display='none';$('#opponent').value='';toast('Демо-вызов для '+n+' создан')};
  $('#shareBtn').onclick=()=>{
   const url=location.href.split('#')[0]+'#profile';
-  if(navigator.share){navigator.share({title:'Мой профиль — КТО №1',text:state.nick+' · '+fmt(state.score)+' баллов',url}).catch(()=>{})}
+  if(navigator.share){navigator.share({title:'Мой профиль — РОССИЯ №1',text:state.nick+' · '+fmt(state.score)+' баллов',url}).catch(()=>{})}
   else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>toast('Ссылка скопирована')).catch(()=>toast(url))}
   else toast('Открой сайт по ссылке и поделись им');
  };
