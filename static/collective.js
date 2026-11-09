@@ -16,7 +16,6 @@
   const form = $('collectiveJoinForm');
   const nameInput = $('collectiveName');
   const list = $('collectiveRanking');
-  const period = $('collectivePeriod');
 
   function say(message, error = false) {
     status.textContent = message;
@@ -38,22 +37,10 @@
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   }
-  function startOfPeriod() {
-    const now = new Date();
-    if (period.value === 'all') return null;
-    if (period.value === 'day') now.setHours(0, 0, 0, 0);
-    else {
-      const day = (now.getDay() + 6) % 7;
-      now.setDate(now.getDate() - day);
-      now.setHours(0, 0, 0, 0);
-    }
-    return now.toISOString();
-  }
   async function loadRanking() {
     if (!configured || !joined) return;
     try {
-      const since = startOfPeriod();
-      const query = 'game_rounds?select=player_id,player_name,multiplier,collected,created_at&order=created_at.desc&limit=2000' + (since ? `&created_at=gte.${encodeURIComponent(since)}` : '');
+      const query = 'game_rounds?select=player_id,player_name,multiplier,collected,created_at&order=created_at.desc&limit=2000';
       const [rows, registered] = await Promise.all([
         request(query),
         request('players?select=player_id,player_name&order=created_at.asc&limit=500')
@@ -106,7 +93,6 @@
     event.preventDefault();
     join(nameInput.value);
   });
-  period.addEventListener('change', loadRanking);
   if (playerName) nameInput.value = playerName;
   if (!configured) say('Рейтинг готов к подключению. Нужны URL и anon key Supabase из инструкции.', true);
   else if (playerName) join(playerName);
