@@ -80,6 +80,22 @@ h1{font-size:30px;line-height:1.03;letter-spacing:-1.4px;margin:7px 0 7px;font-w
 .nav-item .ico{font-size:19px;line-height:1.1}
 .nav-item.active{color:var(--gold2)}
 .nav-item.active .ico{filter:drop-shadow(0 0 8px #d8b77a77)}
+
+.icon-btn{border-color:#63304d;background:linear-gradient(145deg,#321a2b,#1a1720);color:#ff8fbd;box-shadow:inset 0 1px #ffffff18,0 0 18px #d83b8240}
+.icon-btn:active{box-shadow:0 0 22px #f04d9a66}
+.topup-panel{position:relative;overflow:hidden;margin:5px 0 17px;padding:16px;border:1px solid #71334f;border-radius:18px;background:radial-gradient(ellipse at 100% 0%,#8c285244,transparent 48%),linear-gradient(145deg,#241923,#15181f 72%);box-shadow:0 14px 38px #0005}
+.topup-panel:after{content:"";position:absolute;width:130px;height:130px;border:1px solid #ed6ca322;border-radius:50%;right:-53px;top:-60px;box-shadow:0 0 0 16px #ed6ca30a,0 0 0 32px #ed6ca307;pointer-events:none}
+.topup-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.topup-head h2{font-size:18px;line-height:1.1;margin:5px 0 0;letter-spacing:-.5px}
+.topup-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#a83d70,#642443);border:1px solid #f18ab7;color:#fff0f7;font-size:22px;font-weight:950;box-shadow:0 5px 20px #e94c9144}
+.topup-desc{font-size:10px;line-height:1.5;color:#b9a9b3;margin:10px 0 13px;max-width:95%}
+.topup-label{font-size:9px;letter-spacing:1px;color:#e7a0bd;font-weight:900}
+.topup-select{margin:7px 0 10px;background:#17141b;border-color:#74405a;color:#fff0f7;appearance:auto}
+.topup-result{display:flex;justify-content:space-between;align-items:center;padding:10px 2px 12px;color:#a99aa5;font-size:10px}
+.topup-result b{font-size:19px;color:#ff9ac4;letter-spacing:-.4px;text-shadow:0 0 18px #f0529b55}
+.topup-button{width:100%;border:1px solid #f08ab5;border-radius:12px;padding:13px 15px;background:linear-gradient(110deg,#a9346c,#74264f 60%,#55233e);color:#fff5fa;font-size:12px;font-weight:950;box-shadow:inset 0 1px #ffffff35,0 8px 22px #a52c6044;display:flex;justify-content:center;gap:9px;align-items:center}
+.topup-button:active{transform:scale(.98);filter:brightness(1.18)}
+.topup-foot{text-align:center;color:#967486;font-size:8px;letter-spacing:1px;font-weight:800;margin-top:10px}
 .boost-card{background:linear-gradient(135deg,#1d2023,#15191e);border:1px solid #343c44;border-radius:15px;padding:13px;margin:9px 0;display:flex;align-items:center;gap:12px}
 .boost-icon{width:43px;height:43px;flex:none;border-radius:12px;display:grid;place-items:center;background:#30281e;border:1px solid #6c5838;color:var(--gold2);font-size:20px}
 .boost-copy{flex:1;min-width:0}.boost-copy b{font-size:12px;display:block}.boost-copy small{color:var(--muted);font-size:9px}
@@ -154,6 +170,23 @@ h1{font-size:30px;line-height:1.03;letter-spacing:-1.4px;margin:7px 0 7px;font-w
 
   <section class="screen" id="boosts">
    <div class="hero"><div class="eyebrow">ТВОЙ СЛЕДУЮЩИЙ ШАГ</div><h1>Поднимай уровень.</h1><p>Улучшения усиливают общий рейтинг и открывают отметки в профиле.</p></div>
+   <div class="topup-panel">
+    <div class="topup-head"><div><div class="eyebrow">ДЕМО-ПОПОЛНЕНИЕ</div><h2>Резкий рывок в рейтинге</h2></div><div class="topup-mark">₽</div></div>
+    <p class="topup-desc">Выбери сумму — рейтинг сразу вырастет. Это тестовый режим: деньги не списываются, никуда переходить не нужно.</p>
+    <label class="topup-label" for="topupAmount">Сумма пополнения</label>
+    <select class="field topup-select" id="topupAmount">
+     <option value="10">10 ₽ · +1 600 к рейтингу</option>
+     <option value="30">30 ₽ · +6 000 к рейтингу</option>
+     <option value="50">50 ₽ · +11 000 к рейтингу</option>
+     <option value="100">100 ₽ · +25 000 к рейтингу</option>
+     <option value="250">250 ₽ · +70 000 к рейтингу</option>
+     <option value="500">500 ₽ · +160 000 к рейтингу</option>
+    </select>
+    <div class="topup-result"><span>Будет начислено</span><b id="topupGain">+1 600</b></div>
+    <button class="topup-button" id="fakeTopup">Пополнить рейтинг <span>↗</span></button>
+    <div class="topup-foot">ТЕСТОВАЯ КНОПКА · БЕЗ РЕАЛЬНОЙ ОПЛАТЫ</div>
+   </div>
+   <div class="section-head"><h2>Быстрые улучшения</h2></div>
    <div class="boost-card"><div class="boost-icon">↗</div><div class="boost-copy"><b>Импульс влияния</b><small>+100 к общему рейтингу</small></div><button class="action" data-cost="100" data-add="100">100 ◆</button></div>
    <div class="boost-card"><div class="boost-icon">✦</div><div class="boost-copy"><b>Особое оформление</b><small>Статусная рамка профиля</small></div><button class="action" data-cost="250" data-add="0">250 ◆</button></div>
    <div class="boost-card"><div class="boost-icon">♛</div><div class="boost-copy"><b>Титул «Амбициозный»</b><small>+50 к рейтингу и особая отметка</small></div><button class="action red" data-cost="400" data-add="50">400 ◆</button></div>
@@ -234,6 +267,26 @@ h1{font-size:30px;line-height:1.03;letter-spacing:-1.4px;margin:7px 0 7px;font-w
   $('#score').classList.remove('bump');void $('#score').offsetWidth;$('#score').classList.add('bump');
   if(navigator.vibrate)navigator.vibrate([18,35,25]);
  }
+
+ const topupGains={10:1600,30:6000,50:11000,100:25000,250:70000,500:160000};
+ const topupSelect=$('#topupAmount'),topupGain=$('#topupGain');
+ function updateTopupPreview(){topupGain.textContent='+'+fmt(topupGains[+topupSelect.value]||1600)}
+ topupSelect.onchange=updateTopupPreview;
+ $('#fakeTopup').onclick=()=>{
+  const amount=+topupSelect.value, gain=topupGains[amount]||1600;
+  const beforeRank=Math.max(1,247-Math.floor((state.score-8450)/180));
+  state.score+=gain;
+  state.influence+=Math.max(100,Math.floor(gain*.35));
+  const afterRank=Math.max(1,247-Math.floor((state.score-8450)/180));
+  const passed=Math.max(0,beforeRank-afterRank);
+  save();render();
+  celebrate($('#fakeTopup'), '+'+fmt(gain));
+  success();
+  toast('+'+fmt(gain)+' к рейтингу · ты поднялся на '+(passed||1)+' позиц'+(passed===1?'ию':passed>=2&&passed<=4?'ии':'ий')+'!');
+  $('#fakeTopup').innerHTML='Начислено <span>✓</span>';
+  setTimeout(()=>{$('#fakeTopup').innerHTML='Пополнить рейтинг <span>↗</span>'},1800);
+ };
+ updateTopupPreview();
  document.querySelectorAll('[data-cost]').forEach(btn=>btn.onclick=()=>{
   let cost=+btn.dataset.cost,add=+btn.dataset.add;if(state.balance<cost){toast('Не хватает виртуальных монет');sound(170,.15,'square',.02);return}
   state.balance-=cost;state.score+=add;if(add)state.influence+=Math.max(40,Math.floor(add*.7));
