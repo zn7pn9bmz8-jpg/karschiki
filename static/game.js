@@ -85,15 +85,25 @@
   }
   const collectAudio = new Audio("./payment_succes.mp3");
   collectAudio.preload = "auto";
+  collectAudio.volume = 1;
+  collectAudio.load();
   function playCollectSound() {
     stopEngineSound();
     if (!soundEnabled) return;
     try {
+      // Сбрасываем только MP3 и запускаем его непосредственно в обработчике
+      // нажатия «Забрать деньги», чтобы мобильный браузер не блокировал звук.
       collectAudio.pause();
       collectAudio.currentTime = 0;
       const playback = collectAudio.play();
-      if (playback && typeof playback.catch === "function") playback.catch(() => {});
-    } catch (_) {}
+      if (playback && typeof playback.catch === "function") {
+        playback.catch(() => {
+          // Не подменяем MP3 системным/WebAudio-звуком при отказе браузера.
+        });
+      }
+    } catch (_) {
+      // Ошибка воспроизведения не должна запускать другой звук.
+    }
   }
   function playCrashSound() {
     stopEngineSound();
@@ -133,7 +143,10 @@
   // Первый пользовательский жест разблокирует аудио в мобильных браузерах.
   document.addEventListener("pointerdown", () => { if (soundEnabled) initAudio(); }, { once: true, passive: true });
   document.addEventListener("click", event => {
-    if (event.target.closest("button") && !["soundToggle"].includes(event.target.closest("button").id)) playUiSound();
+    const clickedButton = event.target.closest("button");
+    // Для «Забрать деньги» играет только загруженный MP3 — общий короткий
+    // WebAudio-сигнал здесь раньше накладывался на него и звучал как второй звук.
+    if (clickedButton && !["soundToggle", "collect"].includes(clickedButton.id)) playUiSound();
   }, true);
 
   // Промокоды для начисления виртуальных очков. Каждый код действует один раз в этом браузере.
@@ -252,7 +265,7 @@
       // при 2.00x это ровно одна ставка, без повторного возврата самой ставки.
       // Используем тот же коэффициент с двумя знаками, который видит игрок.
       const settledMultiplier = Number(multiplier.toFixed(2));
-      const earned = Math.max(0, Math.floor(BET * (settledMultiplier - 1) * 0.5 + 1e-9));
+      const earned = Math.max(0, Math.floor(BET * (settledMultiplier - 1) * (2 / 3) + 1e-9));
       balance += earned;
       best = Math.max(best, settledMultiplier);
       $("status").textContent = `ЗАЧИСЛЕНО: +${fmt(earned)} РУБЛЕЙ`;

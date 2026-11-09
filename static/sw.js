@@ -1,5 +1,5 @@
-const CACHE_NAME = "karschiki-static-v4";
-const CORE = ["./", "./index.html", "./style.css", "./game.js", "./collective.js", "./collective-config.js", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/apple-touch-icon.png"];
+const CACHE_NAME = "karschiki-static-v5";
+const CORE = ["./", "./index.html", "./style.css", "./game.js", "./collective.js", "./collective-config.js", "./manifest.webmanifest", "./payment_succes.mp3", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/apple-touch-icon.png"];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
