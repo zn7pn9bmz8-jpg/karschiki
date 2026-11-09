@@ -3,7 +3,9 @@
   tg?.ready(); tg?.expand();
   const $ = id => document.getElementById(id);
   const playBtn = $("play"), collectBtn = $("collect"), stage = $("stage");
-  const BET = 300;
+  let BET = 300;
+  const MIN_BET = 25;
+  const MAX_BET = 1000000;
   const BALANCE_KEY = "karschiki_balance";
   const REDEEMED_KEY = "karschiki_redeemed_promos_v1";
   const MAX_PROFILE_URL = "https://max.ru/u/f9LHodD0cOLneOcaWjEmFgBMwk43kHjgXIXkgV5Iri4Pyzd-kON9N1Y9ptg";
@@ -208,6 +210,37 @@
   let multiplier = 1, crashAt = 0, startTime = 0, raf = null, history = [];
 
   const fmt = n => Math.floor(n).toLocaleString("ru-RU");
+  const betAmountEl = $("betAmount");
+  const potentialWinEl = $("potentialWin");
+  const currentStakeLabel = $("currentStakeLabel");
+  const betControls = [$("betMinus"), $("betPlus"), ...Array.from(document.querySelectorAll(".bet-presets button"))].filter(Boolean);
+  function updateBetSelector() {
+    if (betAmountEl) betAmountEl.textContent = fmt(BET) + " ₽";
+    if (currentStakeLabel) currentStakeLabel.textContent = "Ставка: " + fmt(BET) + " рублей";
+    document.querySelectorAll(".bet-presets button").forEach(button => {
+      const selected = Number(button.dataset.bet) === BET;
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+    betControls.forEach(button => { button.disabled = active; });
+  }
+  function updatePotentialWin() {
+    if (potentialWinEl) {
+      const value = active ? Math.max(0, Math.floor(BET * (Number(multiplier.toFixed(2)) - 1) * (5 / 6) + 1e-9)) : 0;
+      potentialWinEl.textContent = fmt(value) + " ₽";
+    }
+  }
+  function setBet(value) {
+    if (active) return;
+    BET = Math.min(MAX_BET, Math.max(MIN_BET, Math.round(Number(value) || MIN_BET)));
+    updateBetSelector();
+    updatePotentialWin();
+  }
+  $("betMinus")?.addEventListener("click", () => setBet(BET - 25));
+  $("betPlus")?.addEventListener("click", () => setBet(BET + 25));
+  document.querySelectorAll(".bet-presets button").forEach(button => {
+    button.addEventListener("click", () => setBet(Number(button.dataset.bet)));
+  });
   function render() {
     try {
       localStorage.setItem(BALANCE_KEY, String(balance));
@@ -276,6 +309,8 @@
     active = false;
     cancelAnimationFrame(raf);
     collectBtn.disabled = true;
+    updateBetSelector();
+    updatePotentialWin();
     playBtn.disabled = false;
     stage.classList.remove("flying");
     if (collected) {
@@ -308,6 +343,7 @@
     if (multiplier >= crashAt) {
       multiplier = crashAt;
       $("multiplier").textContent = multiplier.toFixed(2) + "x";
+      updatePotentialWin();
       // Сразу блокируем управление, затем проигрываем вылет и завершаем поездку.
       active = false;
       cancelAnimationFrame(raf);
@@ -336,6 +372,7 @@
       return;
     }
     $("multiplier").textContent = multiplier.toFixed(2) + "x";
+    updatePotentialWin();
     const x = Math.min(78, 16 + elapsed * 5.2);
     const y = Math.max(18, 55 - elapsed * 3.1);
     $("plane").style.left = x + "%";
@@ -357,6 +394,8 @@
     active = true;
     playBtn.disabled = true;
     collectBtn.disabled = false;
+    updateBetSelector();
+    updatePotentialWin();
     stage.classList.add("flying");
     playStartSound();
     startEngineSound();
@@ -372,4 +411,6 @@
   });
 
   render();
+  updateBetSelector();
+  updatePotentialWin();
 })();

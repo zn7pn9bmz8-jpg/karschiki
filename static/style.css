@@ -106,3 +106,17 @@ footer{text-align:center;color:#77829b;font-size:8px;letter-spacing:1px;margin-t
   margin-bottom: 20px;
 }
 .collective-heading h2 { font-size: 15px; }
+
+
+/* Bet amount selector */
+.bet-selector{background:var(--panel);border:1px solid #2a3550;border-radius:14px;padding:13px 14px;margin-top:14px;box-shadow:0 8px 28px #0002}
+.bet-selector-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;font-size:13px;color:#d5dced}
+.potential-label{font-size:11px;color:var(--muted);text-align:right}.potential-label strong{color:#fff;font-size:13px}
+.bet-stepper{display:grid;grid-template-columns:52px minmax(0,1fr) 52px;gap:8px;align-items:center}
+.bet-step{height:46px!important;min-height:46px;padding:0!important;border:1px solid #394966!important;border-radius:12px!important;background:#222c42!important;color:#f5f7ff!important;font-size:28px!important;line-height:1!important;letter-spacing:0!important}
+.bet-current{height:46px;display:flex;align-items:center;justify-content:center;border:1px solid #2e3b58;border-radius:12px;background:#171d2e;color:#fff;font-size:25px;font-weight:900;letter-spacing:.3px}
+.bet-presets{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:9px}
+.bet-presets button{min-width:0;height:34px;padding:0 3px!important;border-radius:9px!important;background:#222c42;color:#eef2ff;font-size:11px!important;letter-spacing:0!important;border:1px solid transparent}
+.bet-presets button.is-selected{background:linear-gradient(100deg,#ff526c,#d72e60);color:#fff;border-color:#ff6a83}
+.bet-selector button:disabled{opacity:.4}
+@media(max-width:360px){.bet-selector{padding:11px}.bet-selector-head{font-size:12px}.potential-label{font-size:10px}.bet-presets{gap:5px}.bet-presets button{font-size:10px!important}.bet-stepper{grid-template-columns:46px minmax(0,1fr) 46px}}

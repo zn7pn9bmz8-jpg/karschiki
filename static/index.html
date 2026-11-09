@@ -117,7 +117,23 @@
       </div>
       <div class="multiplier" id="multiplier">1.00x</div>
       <div class="status" id="status">ГОТОВ ЕБАШИТЬ?</div>      <div class="stage-label">ЗАГРУЗКА ЗАРПЛАТЫ, ОЖИДАЙТЕ..</div>
-    </section>    <section class="controls">      <div class="stake-row"><span>Очередная опытка</span><strong>Ставка: 300 рублей</strong></div>
+    </section>
+    <section class="bet-selector" aria-label="Выбор суммы ставки">
+      <div class="bet-selector-head"><span>Сумма ставки:</span><span class="potential-label">Потенциальный выигрыш: <strong id="potentialWin">0 ₽</strong></span></div>
+      <div class="bet-stepper">
+        <button id="betMinus" class="bet-step" type="button" aria-label="Уменьшить ставку">−</button>
+        <div class="bet-current" id="betAmount" aria-live="polite">300 ₽</div>
+        <button id="betPlus" class="bet-step" type="button" aria-label="Увеличить ставку">+</button>
+      </div>
+      <div class="bet-presets" aria-label="Быстрый выбор суммы">
+        <button type="button" data-bet="50">50 ₽</button>
+        <button type="button" data-bet="100">100 ₽</button>
+        <button type="button" data-bet="125">125 ₽</button>
+        <button type="button" data-bet="250">250 ₽</button>
+        <button type="button" data-bet="500">500 ₽</button>
+      </div>
+    </section>
+    <section class="controls">      <div class="stake-row"><span>Очередная опытка</span><strong id="currentStakeLabel">Ставка: 300 рублей</strong></div>
       <button id="play" class="main-button">НАЧАТЬ ЕБАШИТЬ</button>
       <button id="collect" class="collect-button" disabled>ЗАБРАТЬ ДЕНЬГИ</button>
       <p class="hint" id="hint">Вывод средств временно недоступен</p>
