@@ -14,8 +14,14 @@ create table if not exists public.game_rounds (
   player_name text not null,
   multiplier numeric(10,2) not null check (multiplier >= 1 and multiplier <= 100000),
   collected boolean not null default false,
+  bet_amount integer not null default 300 check (bet_amount > 0),
+  earned integer not null default 0 check (earned >= 0),
   created_at timestamptz not null default now()
 );
+
+-- Миграция для таблицы, если она была создана предыдущей версией.
+alter table public.game_rounds add column if not exists bet_amount integer not null default 300;
+alter table public.game_rounds add column if not exists earned integer not null default 0;
 
 create index if not exists game_rounds_created_at_idx on public.game_rounds (created_at desc);
 create index if not exists game_rounds_player_id_idx on public.game_rounds (player_id);
