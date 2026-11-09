@@ -244,11 +244,15 @@
     stage.classList.remove("flying");
     if (collected) {
       playCollectSound();
-      const earned = Math.max(0, Math.floor(BET * (multiplier - 1)));
+      // Ставка уже списана при старте. Начисляем только чистый выигрыш:
+      // при 2.00x это ровно одна ставка, без повторного возврата самой ставки.
+      // Используем тот же коэффициент с двумя знаками, который видит игрок.
+      const settledMultiplier = Number(multiplier.toFixed(2));
+      const earned = Math.max(0, Math.floor(BET * (settledMultiplier - 1) + 1e-9));
       balance += earned;
-      best = Math.max(best, multiplier);
+      best = Math.max(best, settledMultiplier);
       $("status").textContent = `ЗАЧИСЛЕНО: +${fmt(earned)} РУБЛЕЙ`;
-      $("hint").textContent = "Деньги зачислены на карту.";
+      $("hint").textContent = `Выигрыш ${fmt(earned)} рублей зачислен на баланс.`;
     } else {
       $("status").textContent = `ПОЕЗДКА ЗАВЕРШЕНА — ${multiplier.toFixed(2)}x`;
       $("hint").textContent = `Проёбано ${fmt(BET)} рублей. Попробуй ещё раз!`;
@@ -312,7 +316,7 @@
     balance -= BET;
     render();
     multiplier = 1;
-    crashAt = 1.15 + Math.random() * 7.85;
+    crashAt = 1.15 + Math.random() * 28.85;
     startTime = performance.now();
     active = true;
     playBtn.disabled = true;
