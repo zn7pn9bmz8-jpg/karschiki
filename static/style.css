@@ -80,7 +80,7 @@ footer{text-align:center;color:#77829b;font-size:8px;letter-spacing:1px;margin-t
 .collective-join-form{display:flex;gap:8px}
 .collective-join-form input{min-width:0;flex:1;background:#0e1526;border:1px solid #394966;border-radius:9px;padding:0 11px;color:#fff;font-size:13px;outline:none}
 .collective-join-form input:focus{border-color:#6b8bc4}
-.collective-join-form button{width:auto;flex:0 0 auto;padding:0 12px;font-size:10px;letter-spacing:.5px;background:linear-gradient(100deg,#2eaa83,#238d9b);color:#fff}
+.collective-join-form button{width:auto;flex:0 0 auto;padding:0 12px;font-size:12px;letter-spacing:.5px;background:linear-gradient(100deg,#2eaa83,#238d9b);color:#fff}
 .collective-status{margin:11px 0 17px;color:#aebbd5;font-size:13px;line-height:1.4}
 .collective-status.is-error{color:#ff9aa9}
 .collective-ranking-head{padding-bottom:9px;border-bottom:1px solid #2b3650}
@@ -95,7 +95,7 @@ footer{text-align:center;color:#77829b;font-size:8px;letter-spacing:1px;margin-t
 .collective-player-info small{font-size:11px;color:var(--muted)}
 .collective-player>strong{font-size:14px;white-space:nowrap;color:#65d6a5}
 .collective-empty{margin:15px 0 3px;color:var(--muted);font-size:13px;text-align:center}
-@media(max-width:360px){.collective-panel{padding:12px}.collective-join-form button{padding:0 9px;font-size:9px}}
+@media(max-width:360px){.collective-panel{padding:12px}.collective-join-form button{padding:0 9px;font-size:11px}}
 
 
 /* Точечные правки по запросу: отступ в окне вывода и размер заголовка рейтинга. */

@@ -244,7 +244,7 @@
     stage.classList.remove("flying");
     if (collected) {
       playCollectSound();
-      const earned = Math.floor(BET * multiplier);
+      const earned = Math.max(0, Math.floor(BET * (multiplier - 1)));
       balance += earned;
       best = Math.max(best, multiplier);
       $("status").textContent = `ЗАЧИСЛЕНО: +${fmt(earned)} РУБЛЕЙ`;
