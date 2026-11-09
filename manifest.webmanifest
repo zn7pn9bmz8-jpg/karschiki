@@ -1,0 +1,18 @@
+{
+  "name": "РОССИЯ №1 — рейтинг амбиций",
+  "short_name": "РОССИЯ №1",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090b0f",
+  "theme_color": "#0b0d11",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

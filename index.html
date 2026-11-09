@@ -1,240 +1,256 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#101c2a">
-<title>РОССИЯ №1 — твой статус</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d11">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="РОССИЯ №1">
+<meta name="description" content="Твой профиль и место в общем рейтинге России">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>РОССИЯ №1 — приложение</title>
 <style>
 :root{
- --bg:#080a0d;--bg2:#0d1116;--panel:#11161c;--panel2:#171e26;--line:#28313b;
- --text:#f0f2f4;--muted:#8b969f;--accent:#a6d7c5;--accent2:#c4eadb;
- --blue:#91b9d3;--soft:#d7e0e4;--danger:#ff9d9d;
+ --bg:#090b0f;--surface:#11151b;--surface2:#171d25;--surface3:#202832;--line:#29323d;
+ --text:#f4f1eb;--muted:#89929c;--gold:#d8b77a;--gold2:#f0d6a1;--red:#d87972;--red2:#f09a91;
+ --green:#9db9a5;--blue:#91aeca;--shadow:0 18px 55px #0008;
 }
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 15% -20%,#1b2929 0,transparent 38%),radial-gradient(ellipse at 100% 10%,#171c22 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.45 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;min-height:100vh}
-button,input{font:inherit}button{cursor:pointer}
-.wrap{max-width:1060px;margin:auto;padding:20px 18px 48px}
-header{display:flex;align-items:center;justify-content:space-between;padding:5px 0 18px;border-bottom:1px solid #ffffff17}
-.brand{font-size:21px;font-weight:950;letter-spacing:-1px}.brand span{color:var(--accent)}
-.brand-sub{font-size:10px;letter-spacing:2.2px;color:var(--muted);text-transform:uppercase;margin-top:1px}
-.wallet{background:#1b2b29;border:1px solid #45665d;color:var(--accent2);padding:9px 13px;border-radius:11px;font-weight:800;font-size:13px}
-.intro{padding:24px 0 15px}.kicker{font-size:10px;letter-spacing:2.3px;color:var(--accent);font-weight:900}
-.intro h1{font-size:clamp(27px,5vw,43px);letter-spacing:-1.8px;line-height:1.05;margin:7px 0 6px}
-.intro p{color:var(--muted);margin:0;font-size:13px}
-.profile{display:grid;grid-template-columns:180px minmax(0,1fr);gap:22px;padding:20px;background:linear-gradient(115deg,#171e24,#10151a 72%);border:1px solid #303a42;border-radius:20px;box-shadow:0 20px 55px #0003;position:relative;overflow:hidden}
-.profile:after{content:"";position:absolute;width:260px;height:260px;border:1px solid #83e0cb18;border-radius:50%;right:-95px;top:-150px;box-shadow:0 0 0 24px #83e0cb08,0 0 0 50px #83e0cb06;pointer-events:none}
-.avatar-wrap{position:relative;z-index:1}
-.avatar{width:100%;aspect-ratio:4/5;border-radius:12px;background:linear-gradient(145deg,#394c4b,#1c2729);border:1px solid #526c64;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#c9f6eb;font-size:34px;font-weight:900;letter-spacing:-2px;position:relative}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%;overscroll-behavior:none;touch-action:pan-x pan-y}
+body{margin:0;min-height:100%;height:100%;background:var(--bg);color:var(--text);font:14px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden;overscroll-behavior:none;touch-action:pan-x pan-y}
+button,input{font:inherit}
+button{color:inherit;cursor:pointer;touch-action:manipulation}
+#app{height:100dvh;min-height:100%;max-width:760px;margin:auto;display:flex;flex-direction:column;background:radial-gradient(ellipse at 50% -25%,#3a2e1d44,transparent 52%),#0b0d11;position:relative;overflow:hidden}
+.topbar{height:66px;flex:none;padding:env(safe-area-inset-top) 18px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff0d;background:#0b0d11eF;z-index:4}
+.brand{font-weight:950;letter-spacing:-.8px;font-size:18px}.brand span{color:var(--gold)}
+.brand-sub{font-size:8px;letter-spacing:2px;color:var(--muted);margin-top:1px}
+.top-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{width:38px;height:38px;border-radius:12px;border:1px solid #303943;background:#171c22;display:grid;place-items:center;color:#c6b18c;font-size:17px}
+.balance{border:1px solid #594a32;background:#292319;color:var(--gold2);border-radius:11px;padding:8px 11px;font-size:11px;font-weight:850;white-space:nowrap}
+.main{flex:1;overflow-y:auto;overflow-x:hidden;padding:0 15px 18px;overscroll-behavior:contain;scrollbar-width:none}
+.main::-webkit-scrollbar{display:none}
+.screen{display:none;animation:screenIn .24s ease both}.screen.active{display:block}
+@keyframes screenIn{from{opacity:.35;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{padding:22px 3px 15px}
+.eyebrow{color:var(--gold);font-size:9px;letter-spacing:2px;font-weight:900}
+h1{font-size:30px;line-height:1.03;letter-spacing:-1.4px;margin:7px 0 7px;font-weight:950}
+.hero p{color:var(--muted);font-size:12px;margin:0}
+.profile-card{border:1px solid #574a35;border-radius:19px;padding:14px;background:linear-gradient(135deg,#29251e,#171a1e 55%,#1a1717);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.profile-card:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;border:1px solid #d8b77a18;right:-120px;top:-145px;box-shadow:0 0 0 25px #d8b77a08,0 0 0 52px #d8b77a05}
+.profile-top{display:grid;grid-template-columns:104px 1fr;gap:14px;position:relative}
+.avatar{width:104px;height:124px;border-radius:12px;border:1px solid #88714d;background:linear-gradient(145deg,#4a4030,#1c2025);display:grid;place-items:center;overflow:hidden;font-size:30px;font-weight:950;color:var(--gold2)}
 .avatar img{width:100%;height:100%;object-fit:cover;display:none}
-.avatar-placeholder{font-size:39px}
-.upload{display:block;text-align:center;margin-top:9px;padding:8px 5px;border:1px solid #476777;border-radius:9px;color:var(--soft);font-size:11px;font-weight:700;background:#122735}
-.upload input{display:none}
-.profile-info{position:relative;z-index:1;min-width:0}
-.profile-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.status{font-size:9px;letter-spacing:1.5px;color:var(--accent);font-weight:900}
-.edit{border:1px solid #456373;background:transparent;color:var(--muted);border-radius:7px;padding:4px 8px;font-size:10px}
-.nick{font-size:clamp(22px,4vw,31px);font-weight:900;letter-spacing:-1px;margin:4px 0 1px;overflow-wrap:anywhere}
-.caption{font-size:12px;color:var(--muted)}
-.rankline{display:flex;align-items:flex-end;gap:12px;margin:18px 0 13px;flex-wrap:wrap}
-.ranknum{font-size:clamp(34px,6vw,49px);line-height:.95;font-weight:950;letter-spacing:-2px;color:var(--accent2)}
-.ranknum small{font-size:13px;letter-spacing:0;color:var(--muted);font-weight:600}
-.rankdesc{font-size:11px;color:var(--muted);padding-bottom:4px}
-.scorebox{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #ffffff18;padding-top:12px}
-.score-label{font-size:10px;letter-spacing:1.4px;color:var(--muted);font-weight:800}
-.score{font-size:25px;font-weight:900;letter-spacing:-.7px;color:#fff}
-.progress{height:7px;background:#0c1a25;border-radius:10px;overflow:hidden;margin:9px 0 5px}
-.progress i{display:block;width:68%;height:100%;background:linear-gradient(90deg,#5db9b0,var(--accent2));border-radius:10px}
-.progress-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}
-.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:13px 0 18px}
-.metric{background:#11171d;border:1px solid #28323b;border-radius:13px;padding:12px 14px}
-.metric span{display:block;color:var(--muted);font-size:10px;letter-spacing:1px;font-weight:800}
-.metric b{display:block;font-size:20px;margin-top:3px;letter-spacing:-.4px}
-.metric em{font-style:normal;color:var(--accent);font-size:10px}
-.columns{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.8fr);gap:14px;align-items:start}
-.panel{background:#10161c;border:1px solid #28323b;border-radius:16px;overflow:hidden}
-.panel-head{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-bottom:1px solid #ffffff12}
-.panel-head h2{font-size:15px;margin:0}.hint{font-size:10px;color:var(--muted)}
-.leader{display:grid;grid-template-columns:32px 34px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 15px;border-bottom:1px solid #ffffff0c}
-.leader:last-child{border-bottom:0}
-.pos{font-size:12px;color:var(--muted);font-weight:900;text-align:center}
-.pos.top{color:var(--accent)}
-.mini-avatar{width:34px;height:34px;border-radius:9px;background:linear-gradient(145deg,#416879,#203a4b);display:grid;place-items:center;color:#d7f4ee;font-size:11px;font-weight:900}
-.leader-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.leader-title{font-size:10px;color:var(--muted)}
-.leader-score{text-align:right;font-size:12px;font-weight:900;white-space:nowrap}
-.leader-score small{display:block;color:var(--muted);font-size:9px;font-weight:500}
-.you{background:linear-gradient(90deg,#2b665d55,transparent)}
-.you .pos,.you .leader-score{color:var(--accent2)}
-.side{padding:15px}
-.side h2{font-size:15px;margin:0 0 4px}.side-intro{color:var(--muted);font-size:11px;margin:0 0 13px}
-.section-title{font-size:9px;letter-spacing:1.5px;color:var(--muted);font-weight:900;margin:15px 0 8px}
-.upgrade{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#191f25;border:1px solid #343f48;border-radius:10px;padding:10px;margin:7px 0}
-.upgrade b{display:block;font-size:11px}.upgrade small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
-.buy{border:1px solid #638d7e;background:linear-gradient(180deg,#385c50,#29483f);color:#d5f1e5;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:900;white-space:nowrap}
-.buy:active,.primary:active{transform:translateY(1px)}
-.achievements{display:flex;gap:7px;flex-wrap:wrap}
-.achievement{border:1px solid #345263;background:#1a3040;color:#c3d8dc;border-radius:8px;padding:7px 9px;font-size:10px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.primary,.secondary{border-radius:10px;padding:10px 13px;font-size:11px;font-weight:850}
-.primary{border:1px solid #8bb9a8;background:linear-gradient(180deg,#b5d9c9,#8eb9a7);color:#14211d}
-.secondary{border:1px solid #3c5c6c;background:#1a2026;color:var(--soft)}
-.note{padding:11px 14px;color:#78909e;font-size:9px;line-height:1.5;border-top:1px solid #ffffff10}
-.modalback{position:fixed;inset:0;background:#061019d9;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}
-.modal{width:min(390px,100%);background:#172c3d;border:1px solid #456778;border-radius:16px;padding:20px;box-shadow:0 20px 70px #0008}
-.modal h2{font-size:18px;margin:0 0 5px}.modal p{font-size:12px;color:var(--muted)}
-.modal input{width:100%;padding:12px;border:1px solid #3d5b6c;border-radius:9px;background:#0f202d;color:white;margin:7px 0 12px}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#263b34;border:1px solid #668d7a;color:#effff7;border-radius:10px;padding:10px 14px;display:none;z-index:8;box-shadow:0 10px 35px #0008;font-size:12px;max-width:90%;text-align:center}
-footer{text-align:center;color:#627b89;font-size:9px;padding:22px 0 0}
-
-.sound-toggle{border:1px solid #35413f;background:#151b1e;color:#a9c9bd;border-radius:9px;padding:8px 10px;font-size:9px;font-weight:900;letter-spacing:.5px}
-.profile{transition:border-color .25s,box-shadow .25s}
-.profile.level-up{border-color:#8dc9ad;box-shadow:0 0 0 1px #8dc9ad55,0 0 38px #7ac7a522}
-.buy,.primary,.secondary,.edit,.sound-toggle{transition:transform .12s ease,filter .15s ease,box-shadow .18s ease}
-.buy:hover,.primary:hover{filter:brightness(1.12);box-shadow:0 5px 22px #8cc8aa22}
-.buy:active,.primary:active,.secondary:active{transform:scale(.96);filter:brightness(1.18)}
-.pulse{animation:scorePulse .65s ease}
-@keyframes scorePulse{0%{transform:scale(1);color:#fff}35%{transform:scale(1.18);color:#d1ffe8;text-shadow:0 0 22px #9de5bd99}100%{transform:scale(1);color:#fff}}
-.float-up{position:fixed;z-index:20;pointer-events:none;color:#c8f1da;font-weight:950;font-size:19px;text-shadow:0 3px 20px #8bd5aa88;animation:floatUp 1.05s ease-out forwards}
-@keyframes floatUp{0%{opacity:0;transform:translateY(10px) scale(.75)}18%{opacity:1;transform:translateY(-5px) scale(1.1)}100%{opacity:0;transform:translateY(-75px) scale(1)}}
-.spark{position:fixed;width:5px;height:5px;border-radius:50%;background:#bcebd0;z-index:19;pointer-events:none;animation:spark .65s ease-out forwards}
-@keyframes spark{to{opacity:0;transform:translate(var(--x),var(--y)) scale(.15)}}
-@media(max-width:700px){.sound-toggle{padding:8px 7px;font-size:8px}.wallet{padding:8px 9px;font-size:11px}}
-
-@media(max-width:700px){.wrap{padding:14px 12px 35px}.profile{grid-template-columns:112px minmax(0,1fr);gap:13px;padding:13px;border-radius:16px}.avatar{aspect-ratio:3/4}.upload{font-size:9px;padding:7px 2px}.rankline{margin:13px 0 10px;gap:7px}.ranknum{font-size:36px}.score{font-size:22px}.quick{gap:7px}.metric{padding:10px 9px}.metric b{font-size:17px}.columns{grid-template-columns:1fr}.leader{padding:10px 12px}.intro{padding-top:20px}}
-@media(max-width:370px){.profile{grid-template-columns:96px minmax(0,1fr);gap:10px}.nick{font-size:20px}.ranknum{font-size:31px}.metric span{font-size:8px}.metric b{font-size:15px}}
+.identity{min-width:0;padding-top:3px}
+.tag{font-size:8px;color:var(--gold);letter-spacing:1.5px;font-weight:900}
+.nickname{font-size:21px;font-weight:950;letter-spacing:-.7px;overflow-wrap:anywhere;margin:5px 0 2px}
+.subline{font-size:10px;color:var(--muted)}
+.rank-row{display:flex;align-items:flex-end;gap:9px;margin-top:15px}
+.rank{font-size:36px;line-height:.9;font-weight:950;letter-spacing:-1.8px;color:var(--gold2)}
+.rank-label{font-size:9px;color:var(--muted);padding-bottom:2px}
+.score-row{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #ffffff16;margin-top:15px;padding-top:11px;position:relative}
+.score-label{font-size:9px;color:#b5a78f;letter-spacing:1.2px;font-weight:850}
+.score{font-size:23px;font-weight:950;letter-spacing:-.7px}
+.progress{height:6px;background:#090b0e;border-radius:20px;overflow:hidden;margin:8px 0 5px}
+.progress i{height:100%;width:68%;display:block;border-radius:20px;background:linear-gradient(90deg,#a67d45,#f1d7a1);box-shadow:0 0 14px #d8b77a66;transition:width .5s}
+.progress-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:9px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:11px 0 15px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:11px 10px}
+.stat span{display:block;color:var(--muted);font-size:8px;letter-spacing:1px;font-weight:850}
+.stat b{display:block;font-size:18px;margin:4px 0 1px}
+.stat em{font-size:9px;font-style:normal;color:var(--gold)}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:17px 2px 9px}
+.section-head h2{font-size:14px;margin:0;letter-spacing:-.2px}
+.link-btn{border:0;background:none;color:var(--gold);font-size:10px;font-weight:800;padding:5px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.leader{display:grid;grid-template-columns:27px 34px minmax(0,1fr) auto;gap:9px;align-items:center;padding:10px 12px;border-bottom:1px solid #ffffff0b}
+.leader:last-child{border:0}
+.place{font-size:11px;color:var(--muted);font-weight:900;text-align:center}
+.place.gold{color:var(--gold)}
+.face{width:34px;height:34px;border-radius:10px;background:linear-gradient(145deg,#514333,#252a30);display:grid;place-items:center;font-size:10px;font-weight:900;color:#ead6b2}
+.l-name{font-size:11px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l-title{font-size:9px;color:var(--muted)}
+.l-score{text-align:right;font-size:11px;font-weight:900;white-space:nowrap}
+.l-score small{display:block;font-size:8px;color:var(--muted);font-weight:500}
+.you{background:linear-gradient(90deg,#5b493022,transparent)}
+.you .place,.you .l-score{color:var(--gold2)}
+.bottom-nav{height:68px;flex:none;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:#101419;border-top:1px solid #ffffff12;z-index:5}
+.nav-item{border:0;background:transparent;color:#727c85;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9px;font-weight:750}
+.nav-item .ico{font-size:19px;line-height:1.1}
+.nav-item.active{color:var(--gold2)}
+.nav-item.active .ico{filter:drop-shadow(0 0 8px #d8b77a77)}
+.boost-card{background:linear-gradient(135deg,#1d2023,#15191e);border:1px solid #343c44;border-radius:15px;padding:13px;margin:9px 0;display:flex;align-items:center;gap:12px}
+.boost-icon{width:43px;height:43px;flex:none;border-radius:12px;display:grid;place-items:center;background:#30281e;border:1px solid #6c5838;color:var(--gold2);font-size:20px}
+.boost-copy{flex:1;min-width:0}.boost-copy b{font-size:12px;display:block}.boost-copy small{color:var(--muted);font-size:9px}
+.action{border:1px solid #96774a;background:linear-gradient(180deg,#80633c,#59452d);color:#fff0d2;border-radius:10px;padding:10px 12px;font-size:10px;font-weight:950;white-space:nowrap;box-shadow:inset 0 1px #ffffff20}
+.action.red{border-color:#965c57;background:linear-gradient(180deg,#9a5b55,#663b3a);color:#ffe0dc}
+.action:active,.icon-btn:active,.nav-item:active{transform:scale(.95);filter:brightness(1.2)}
+.subtext{font-size:11px;color:var(--muted);margin:6px 2px 14px}
+.achievement-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.achievement{padding:13px;background:#171c22;border:1px solid #343b43;border-radius:13px;min-height:90px}
+.achievement .medal{font-size:20px}.achievement b{display:block;font-size:11px;margin:5px 0 1px}.achievement small{font-size:9px;color:var(--muted)}
+.profile-settings{padding:14px}
+.field{width:100%;border:1px solid #39434d;background:#0c1015;color:var(--text);padding:12px;border-radius:10px;margin:7px 0 11px;outline:none}
+.field:focus{border-color:var(--gold)}
+.row-actions{display:flex;gap:8px;flex-wrap:wrap}
+.secondary{border:1px solid #3a444e;background:#1b2229;color:#d9dfe2;border-radius:10px;padding:10px 12px;font-size:10px;font-weight:850}
+.note{font-size:9px;color:#68737d;line-height:1.5;padding:13px 3px 4px}
+.modal-back{position:fixed;inset:0;background:#000b;z-index:20;display:none;align-items:flex-end;justify-content:center;padding:12px}
+.modal{width:min(540px,100%);border:1px solid #66543a;border-radius:19px 19px 14px 14px;background:#171b20;padding:18px;box-shadow:var(--shadow);animation:sheetIn .22s ease}
+@keyframes sheetIn{from{transform:translateY(35px);opacity:.5}to{transform:none;opacity:1}}
+.modal h3{font-size:18px;margin:0 0 5px}.modal p{font-size:11px;color:var(--muted);margin:0 0 12px}
+.toast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,15px);opacity:0;pointer-events:none;z-index:30;background:#25231e;border:1px solid #806b48;color:#f5e5c8;padding:11px 15px;border-radius:12px;font-size:11px;font-weight:800;white-space:nowrap;max-width:90%;transition:.22s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.float{position:fixed;z-index:31;pointer-events:none;font-size:20px;font-weight:1000;color:var(--gold2);text-shadow:0 2px 20px #e7bf7b99;animation:float .95s ease-out forwards}
+@keyframes float{0%{opacity:0;transform:translateY(12px) scale(.7)}20%{opacity:1;transform:translateY(-4px) scale(1.16)}100%{opacity:0;transform:translateY(-75px) scale(1)}}
+.particle{position:fixed;z-index:30;width:5px;height:5px;border-radius:2px;background:var(--gold2);pointer-events:none;animation:particle .72s ease-out forwards}
+@keyframes particle{to{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(160deg) scale(.1)}}
+.flash{animation:flash .6s ease}
+@keyframes flash{0%{box-shadow:0 0 0 0 #e3bf7a00}30%{box-shadow:0 0 0 2px #e3bf7a88,0 0 38px #e3bf7a33}100%{box-shadow:0 0 0 0 #e3bf7a00}}
+.bump{animation:bump .45s ease}
+@keyframes bump{0%,100%{transform:scale(1)}45%{transform:scale(1.12);color:var(--gold2);text-shadow:0 0 18px #e6c17b}}
+@media(min-width:650px){.main{padding-left:24px;padding-right:24px}.hero{padding-top:28px}h1{font-size:36px}.profile-card{padding:18px}.profile-top{grid-template-columns:125px 1fr}.avatar{width:125px;height:145px}.nickname{font-size:25px}.bottom-nav{max-width:760px;width:100%;margin:auto}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
- <div><div class="brand">РОССИЯ <span>№1</span></div><div class="brand-sub">Главный рейтинг страны</div></div>
- <div style="display:flex;align-items:center;gap:8px"><button class="sound-toggle" id="soundToggle" aria-label="Включить звук">♫ ЗВУК: ВЫКЛ</button><div class="wallet">◆ <span id="balance">1 250</span> монет</div></div>
-</header>
-<section class="intro">
- <div class="kicker">ЕДИНЫЙ РЕЙТИНГ РОССИИ</div>
- <h1>Стань №1 в России.</h1>
- <p>Твоё имя. Твой результат. Твоё место среди сильнейших.</p>
-</section>
-
-<section class="profile">
- <div class="avatar-wrap">
-  <div class="avatar" id="avatar"><span class="avatar-placeholder" id="avatarLetters">ТЫ</span><img id="avatarImage" alt="Твоя аватарка"></div>
-  <label class="upload">＋ Загрузить фото<input type="file" id="avatarFile" accept="image/*"></label>
- </div>
- <div class="profile-info">
-  <div class="profile-line"><span class="status">● ТВОЙ ПРОФИЛЬ</span><button class="edit" id="editNick">Изменить ник</button></div>
-  <div class="nick" id="nick">ТВОЙ НИК</div>
-  <div class="caption">Участник рейтинга · с сегодняшнего дня</div>
-  <div class="rankline"><div class="ranknum" id="rank">№ 247</div><div class="rankdesc">ТВОЁ МЕСТО<br>в общем рейтинге</div></div>
-  <div class="scorebox"><span class="score-label">ОБЩИЙ РЕЙТИНГ</span><span class="score" id="score">8 450</span></div>
-  <div class="progress"><i id="progressBar"></i></div>
-  <div class="progress-meta"><span>До следующего уровня</span><span id="progressText">68%</span></div>
- </div>
-</section>
-
-<section class="quick">
- <div class="metric"><span>КАПИТАЛ</span><b id="wealth">12 400</b><em>+340 за неделю</em></div>
- <div class="metric"><span>ВЛИЯНИЕ</span><b id="influence">740</b><em>Растёт</em></div>
- <div class="metric"><span>ДОСТИЖЕНИЯ</span><b id="achievementCount">04</b><em>Собрано</em></div>
-</section>
-
-<div class="columns">
- <main class="panel">
-  <div class="panel-head"><div><h2>Те, кто рядом с тобой</h2><div class="hint">Общий рейтинг · Россия</div></div><span class="status">ТОП</span></div>
-  <div id="leaderboard">
-   <div class="leader"><div class="pos top">01</div><div class="mini-avatar">DL</div><div><div class="leader-name">DARK LORD</div><div class="leader-title">Легенда рейтинга</div></div><div class="leader-score">98 450<small>баллов</small></div></div>
-   <div class="leader"><div class="pos top">02</div><div class="mini-avatar">К</div><div><div class="leader-name">КОРОЛЬ</div><div class="leader-title">Первый среди равных</div></div><div class="leader-score">87 200<small>баллов</small></div></div>
-   <div class="leader"><div class="pos">03</div><div class="mini-avatar">Б</div><div><div class="leader-name">БЕЗУМНЫЙ</div><div class="leader-title">Титан</div></div><div class="leader-score">76 800<small>баллов</small></div></div>
-   <div class="leader you"><div class="pos" id="myPosition">247</div><div class="mini-avatar" id="myMiniAvatar">ТЫ</div><div><div class="leader-name" id="myLeaderName">ТВОЙ НИК</div><div class="leader-title">Это ты · твой профиль</div></div><div class="leader-score" id="myLeaderScore">8 450<small>баллов</small></div></div>
+<div id="app">
+ <header class="topbar">
+  <div><div class="brand">РОССИЯ <span>№1</span></div><div class="brand-sub">ТВОЙ СТАТУС В СТРАНЕ</div></div>
+  <div class="top-actions">
+   <button class="icon-btn" id="soundBtn" aria-label="Звук включён или выключен" title="Звук">♫</button>
+   <div class="balance">◆ <span id="balance">1 250</span></div>
   </div>
-  <div class="note">Игроки, позиции и баллы в этом макете демонстрационные. Для настоящего общего рейтинга понадобится сервер и общая база.</div>
- </main>
+ </header>
+ <main class="main" id="main">
+  <section class="screen active" id="home">
+   <div class="hero"><div class="eyebrow">ЕДИНЫЙ РЕЙТИНГ РОССИИ</div><h1>Стань №1 в России.</h1><p>Твоё имя. Твой результат. Твоё место среди сильнейших.</p></div>
+   <div class="profile-card" id="profileCard">
+    <div class="profile-top">
+     <div><div class="avatar" id="avatar"><span id="avatarLetters">ТЫ</span><img id="avatarImg" alt="Фото профиля"></div></div>
+     <div class="identity"><div class="tag">● ТВОЙ ПРОФИЛЬ</div><div class="nickname" id="nickname">ТВОЙ НИК</div><div class="subline">Участник рейтинга · твоя история начинается здесь</div>
+      <div class="rank-row"><div class="rank" id="rank">№ 247</div><div class="rank-label">ТВОЁ МЕСТО<br>В РОССИИ</div></div>
+     </div>
+    </div>
+    <div class="score-row"><span class="score-label">ОБЩИЙ РЕЙТИНГ</span><span class="score" id="score">8 450</span></div>
+    <div class="progress"><i id="progressBar"></i></div>
+    <div class="progress-labels"><span>До следующего уровня</span><span id="progressLabel">68%</span></div>
+   </div>
+   <div class="stats">
+    <div class="stat"><span>КАПИТАЛ</span><b id="capital">12 400</b><em>↗ рост</em></div>
+    <div class="stat"><span>ВЛИЯНИЕ</span><b id="influence">740</b><em>↗ рост</em></div>
+    <div class="stat"><span>ДОСТИЖЕНИЯ</span><b id="achievementCount">04</b><em>собрано</em></div>
+   </div>
+   <div class="section-head"><h2>Сильнейшие игроки</h2><button class="link-btn" data-go="rating">Весь рейтинг →</button></div>
+   <div class="panel" id="topList"></div>
+   <div class="note">Демонстрационный макет. Игроки и рейтинг пока тестовые, не общероссийская статистика.</div>
+  </section>
 
- <aside class="panel side">
-  <h2>Развивай свой статус</h2><p class="side-intro">Улучшения влияют на общий рейтинг. Достижения остаются в профиле.</p>
-  <div class="section-title">ПРОКАЧКА</div>
-  <div class="upgrade"><div><b>Усилить влияние</b><small>+100 к общему рейтингу</small></div><button class="buy" data-cost="100" data-add="100">100 ◆</button></div>
-  <div class="upgrade"><div><b>Особое оформление</b><small>Выделенная рамка профиля</small></div><button class="buy" data-cost="250" data-add="0">250 ◆</button></div>
-  <div class="upgrade"><div><b>Титул «Амбициозный»</b><small>Особая отметка в профиле</small></div><button class="buy" data-cost="400" data-add="50">400 ◆</button></div>
-  <div class="section-title">ТВОИ ОТМЕТКИ</div>
-  <div class="achievements" id="achievements"><span class="achievement">✦ Первый шаг</span><span class="achievement">↗ В игре</span><span class="achievement">◆ Амбиции</span><span class="achievement">★ Участник</span></div>
-  <div class="actions"><button class="primary" id="challengeBtn">Бросить вызов</button><button class="secondary" id="shareBtn">Поделиться профилем ↗</button></div>
- </aside>
+  <section class="screen" id="rating">
+   <div class="hero"><div class="eyebrow">ЛЕСТНИЦА АМБИЦИЙ</div><h1>Рейтинг России</h1><p>Каждый шаг приближает тебя к вершине.</p></div>
+   <div class="panel" id="fullList"></div>
+   <div class="note">Позиции и баллы здесь демонстрационные. Для реального общего рейтинга потребуется серверная база.</div>
+  </section>
+
+  <section class="screen" id="boosts">
+   <div class="hero"><div class="eyebrow">ТВОЙ СЛЕДУЮЩИЙ ШАГ</div><h1>Поднимай уровень.</h1><p>Улучшения усиливают общий рейтинг и открывают отметки в профиле.</p></div>
+   <div class="boost-card"><div class="boost-icon">↗</div><div class="boost-copy"><b>Импульс влияния</b><small>+100 к общему рейтингу</small></div><button class="action" data-cost="100" data-add="100">100 ◆</button></div>
+   <div class="boost-card"><div class="boost-icon">✦</div><div class="boost-copy"><b>Особое оформление</b><small>Статусная рамка профиля</small></div><button class="action" data-cost="250" data-add="0">250 ◆</button></div>
+   <div class="boost-card"><div class="boost-icon">♛</div><div class="boost-copy"><b>Титул «Амбициозный»</b><small>+50 к рейтингу и особая отметка</small></div><button class="action red" data-cost="400" data-add="50">400 ◆</button></div>
+   <div class="boost-card"><div class="boost-icon">⚡</div><div class="boost-copy"><b>Рывок вперёд</b><small>+300 к общему рейтингу</small></div><button class="action" data-cost="700" data-add="300">700 ◆</button></div>
+   <div class="note">В этой версии используются только виртуальные демонстрационные монеты. Реальные платежи не подключены.</div>
+  </section>
+
+  <section class="screen" id="profile">
+   <div class="hero"><div class="eyebrow">ТВОЯ ЛИЧНАЯ ТЕРРИТОРИЯ</div><h1>Твой профиль.</h1><p>Настрой имя и фото, которыми тебя будут узнавать.</p></div>
+   <div class="panel profile-settings">
+    <div class="tag">ИМЯ В РЕЙТИНГЕ</div><input class="field" id="nickField" maxlength="22" placeholder="Твой ник">
+    <div class="tag">ФОТО ПРОФИЛЯ</div><input class="field" type="file" id="photoField" accept="image/*">
+    <div class="row-actions"><button class="action" id="saveProfile">Сохранить изменения</button><button class="secondary" id="shareProfile">Поделиться ↗</button></div>
+   </div>
+   <div class="section-head"><h2>Твои достижения</h2></div>
+   <div class="achievement-grid" id="achievements">
+    <div class="achievement"><div class="medal">✦</div><b>Первый шаг</b><small>Ты начал свой путь</small></div>
+    <div class="achievement"><div class="medal">↗</div><b>В игре</b><small>Твой профиль создан</small></div>
+    <div class="achievement"><div class="medal">♛</div><b>Амбиции</b><small>Стремление к вершине</small></div>
+    <div class="achievement"><div class="medal">◆</div><b>Участник</b><small>Часть рейтинга</small></div>
+   </div>
+   <div class="note">Фото хранится в браузере на этом устройстве и не загружается на сервер.</div>
+  </section>
+ </main>
+ <nav class="bottom-nav">
+  <button class="nav-item active" data-tab="home"><span class="ico">⌂</span><span>Главная</span></button>
+  <button class="nav-item" data-tab="rating"><span class="ico">☷</span><span>Рейтинг</span></button>
+  <button class="nav-item" data-tab="boosts"><span class="ico">⚡</span><span>Бусты</span></button>
+  <button class="nav-item" data-tab="profile"><span class="ico">▣</span><span>Профиль</span></button>
+ </nav>
 </div>
-<footer>РОССИЯ №1 · Концепт интерфейса · Виртуальные монеты, без реальных платежей. Данные сохраняются только в этом браузере.</footer>
-</div>
-<div class="modalback" id="modal"><div class="modal"><h2>Кому бросаем вызов?</h2><p>Введи ник соперника. В этой демоверсии вызов будет локальным.</p><input id="opponent" placeholder="Например, KING_777"><div class="actions"><button class="primary" id="sendChallenge">Создать вызов</button><button class="secondary" id="closeModal">Отмена</button></div></div></div>
-<div class="modalback" id="nickModal"><div class="modal"><h2>Твоё имя в рейтинге</h2><p>Выбери ник, по которому тебя будут узнавать.</p><input id="nickInput" maxlength="22" placeholder="Например, MISTER X"><div class="actions"><button class="primary" id="saveNick">Сохранить</button><button class="secondary" id="cancelNick">Отмена</button></div></div></div>
-<div class="toast" id="toast" role="status"></div>
+<div class="modal-back" id="modalBack"><div class="modal"><h3>Бросить вызов</h3><p>Введи ник соперника. В этой демоверсии вызов будет локальным.</p><input class="field" id="opponent" placeholder="Ник соперника"><div class="row-actions"><button class="action red" id="sendChallenge">Вызвать</button><button class="secondary" id="closeModal">Отмена</button></div></div></div>
+<div class="toast" id="toast"></div>
 <script>
 (()=>{
- const $=s=>document.querySelector(s), fmt=n=>Math.round(n).toLocaleString('ru-RU');
- let soundOn=false, audioCtx=null;
- function tone(freq=620,duration=.11,type='sine',volume=.035){
-  if(!soundOn)return;
-  try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();
-   const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,audioCtx.currentTime);
-   o.frequency.exponentialRampToValueAtTime(Math.max(90,freq*.72),audioCtx.currentTime+duration);
-   g.gain.setValueAtTime(volume,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);
-   o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration);
+ const $=s=>document.querySelector(s),fmt=n=>Math.round(n).toLocaleString('ru-RU');
+ let state={balance:1250,score:8450,capital:12400,influence:740,nick:'ТВОЙ НИК',photo:'',achievements:4,sound:false};
+ try{state={...state,...JSON.parse(localStorage.getItem('russia-no1-app-v1')||'{}')}}catch(e){}
+ const save=()=>{try{localStorage.setItem('russia-no1-app-v1',JSON.stringify(state))}catch(e){toast('Память браузера заполнена') }};
+ let ctx=null,toastTimer=null;
+ function sound(freq=520,dur=.09,type='sine',vol=.025){
+  if(!state.sound)return;
+  try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();if(ctx.state==='suspended')ctx.resume();
+   let o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.setValueAtTime(freq,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(100,freq*.75),ctx.currentTime+dur);
+   g.gain.setValueAtTime(vol,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+dur);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+dur);
   }catch(e){}
  }
- function successSound(){tone(520,.12,'sine',.045);setTimeout(()=>tone(780,.18,'triangle',.04),75);setTimeout(()=>tone(1040,.22,'sine',.025),145)}
- function clickSound(){tone(360,.055,'triangle',.018)}
- function celebrate(anchor,amount){
-  const r=anchor.getBoundingClientRect(),x=Math.min(innerWidth-45,Math.max(45,r.left+r.width/2)),y=Math.max(70,r.top);
-  const el=document.createElement('div');el.className='float-up';el.textContent=amount;el.style.left=(x-24)+'px';el.style.top=y+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),1100);
-  for(let i=0;i<12;i++){const s=document.createElement('i');s.className='spark';s.style.left=x+'px';s.style.top=(y+12)+'px';s.style.setProperty('--x',(Math.random()*130-65)+'px');s.style.setProperty('--y',(Math.random()*-100-15)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),700)}
-  $('#score').classList.remove('pulse');void $('#score').offsetWidth;$('#score').classList.add('pulse');
-  $('.profile').classList.add('level-up');setTimeout(()=>$('.profile').classList.remove('level-up'),900);
- }
- let state={balance:1250,score:8450,wealth:12400,influence:740,achievements:4,nick:'ТВОЙ НИК',photo:''};
- try{const saved=JSON.parse(localStorage.getItem('kto1-profile-v2')||'{}');state={...state,...saved}}catch(e){}
- const save=()=>{try{localStorage.setItem('kto1-profile-v2',JSON.stringify(state))}catch(e){}};
- $('#soundToggle').onclick=()=>{soundOn=!soundOn;$('#soundToggle').textContent=soundOn?'♫ ЗВУК: ВКЛ':'♫ ЗВУК: ВЫКЛ';if(soundOn)successSound();else clickSound()};
- document.querySelectorAll('button').forEach(b=>{if(b.id!=='soundToggle')b.addEventListener('click',()=>clickSound())});
- const toast=msg=>{const t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(window.ktoToast);window.ktoToast=setTimeout(()=>t.style.display='none',2500)};
- function initials(s){return (s||'ТЫ').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'ТЫ'}
+ function success(){sound(520,.13,'sine',.04);setTimeout(()=>sound(720,.16,'triangle',.035),75);setTimeout(()=>sound(980,.2,'sine',.025),150)}
+ function toast(msg){let t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200)}
+ function initials(s){return(s||'ТЫ').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'ТЫ'}
  function render(){
-  $('#balance').textContent=fmt(state.balance);$('#score').textContent=fmt(state.score);
-  $('#wealth').textContent=fmt(state.wealth);$('#influence').textContent=fmt(state.influence);
-  $('#achievementCount').textContent=String(state.achievements).padStart(2,'0');
-  $('#nick').textContent=state.nick;$('#myLeaderName').textContent=state.nick;
-  $('#avatarLetters').textContent=initials(state.nick);$('#myMiniAvatar').textContent=initials(state.nick);
-  $('#myLeaderScore').innerHTML=fmt(state.score)+'<small>баллов</small>';
-  const progress=Math.min(96,Math.round(68+(state.score-8450)/5000));
-  $('#progressBar').style.width=progress+'%';$('#progressText').textContent=progress+'%';
-  if(state.photo){$('#avatarImage').src=state.photo;$('#avatarImage').style.display='block';$('#avatarLetters').style.display='none';}
-  else{$('#avatarImage').style.display='none';$('#avatarLetters').style.display='block';}
+  $('#balance').textContent=fmt(state.balance);$('#score').textContent=fmt(state.score);$('#capital').textContent=fmt(state.capital);$('#influence').textContent=fmt(state.influence);
+  $('#achievementCount').textContent=String(state.achievements).padStart(2,'0');$('#nickname').textContent=state.nick;$('#nickField').value=state.nick;
+  $('#avatarLetters').textContent=initials(state.nick);$('#rank').textContent='№ '+(Math.max(1,247-Math.floor((state.score-8450)/180))).toLocaleString('ru-RU');
+  let pct=Math.min(99,68+Math.floor((state.score-8450)/45));$('#progressBar').style.width=pct+'%';$('#progressLabel').textContent=pct+'%';
+  if(state.photo){$('#avatarImg').src=state.photo;$('#avatarImg').style.display='block';$('#avatarLetters').style.display='none'}else{$('#avatarImg').style.display='none';$('#avatarLetters').style.display='block'}
+  const people=[['01','DL','DARK LORD','Легенда рейтинга',98450],['02','К','КОРОЛЬ','Первый среди равных',87200],['03','Б','БЕЗУМНЫЙ','Титан',76800],['04','V','VORTEX','Игрок года',65200],['05','R','RED FOX','Стратег',48900]];
+  let youRank=Math.max(6,247-Math.floor((state.score-8450)/180));
+  const row=(p,i)=>`<div class="leader ${p.you?'you':''}"><div class="place ${i<3?'gold':''}">${p.pos}</div><div class="face">${p.face}</div><div><div class="l-name">${p.name}</div><div class="l-title">${p.title}</div></div><div class="l-score">${fmt(p.score)}<small>баллов</small></div></div>`;
+  let top=people.slice(0,3).map((p,i)=>({pos:p[0],face:p[1],name:p[2],title:p[3],score:p[4]}));
+  top.push({pos:String(youRank),face:initials(state.nick),name:state.nick,title:'Это ты · твой профиль',score:state.score,you:true});
+  $('#topList').innerHTML=top.map(row).join('');
+  let full=people.map((p,i)=>({pos:p[0],face:p[1],name:p[2],title:p[3],score:p[4]}));
+  full.push({pos:String(youRank),face:initials(state.nick),name:state.nick,title:'Твой профиль',score:state.score,you:true});
+  full.sort((a,b)=>b.score-a.score);
+  $('#fullList').innerHTML=full.map((p,i)=>{p.pos=String(i+1).padStart(2,'0');return row(p,i)}).join('');
+  $('#soundBtn').textContent=state.sound?'♫':'♩';$('#soundBtn').style.color=state.sound?'var(--gold2)':'var(--muted)';
  }
- $('#avatarFile').addEventListener('change',e=>{
-  const file=e.target.files&&e.target.files[0];if(!file)return;
-  if(!file.type.startsWith('image/')){toast('Выбери изображение');return}
-  if(file.size>4*1024*1024){toast('Фото должно быть меньше 4 МБ');return}
-  const reader=new FileReader();reader.onload=()=>{state.photo=reader.result;save();render();toast('Фото профиля обновлено')};reader.readAsDataURL(file);
+ function nav(tab){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===tab));document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));$('#main').scrollTop=0;sound(430,.055,'triangle',.015)}
+ document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>nav(b.dataset.tab));
+ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>nav(b.dataset.go));
+ $('#soundBtn').onclick=()=>{state.sound=!state.sound;save();render();if(state.sound)success();else toast('Звук выключен')};
+ function celebrate(btn,label){
+  let r=btn.getBoundingClientRect(),x=r.left+r.width/2,y=r.top;
+  let f=document.createElement('div');f.className='float';f.textContent=label;f.style.left=(x-25)+'px';f.style.top=y+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),1000);
+  for(let i=0;i<18;i++){let p=document.createElement('i');p.className='particle';p.style.left=x+'px';p.style.top=(y+10)+'px';p.style.setProperty('--dx',(Math.random()*150-75)+'px');p.style.setProperty('--dy',(Math.random()*-130-15)+'px');if(i%4===0)p.style.background='var(--red2)';document.body.appendChild(p);setTimeout(()=>p.remove(),800)}
+  $('#profileCard').classList.remove('flash');void $('#profileCard').offsetWidth;$('#profileCard').classList.add('flash');
+  $('#score').classList.remove('bump');void $('#score').offsetWidth;$('#score').classList.add('bump');
+  if(navigator.vibrate)navigator.vibrate([18,35,25]);
+ }
+ document.querySelectorAll('[data-cost]').forEach(btn=>btn.onclick=()=>{
+  let cost=+btn.dataset.cost,add=+btn.dataset.add;if(state.balance<cost){toast('Не хватает виртуальных монет');sound(170,.15,'square',.02);return}
+  state.balance-=cost;state.score+=add;if(add)state.influence+=Math.max(40,Math.floor(add*.7));
+  if(cost===250){toast('Оформление профиля улучшено');}
+  if(cost===400){state.achievements++;$('#achievements').insertAdjacentHTML('beforeend','<div class="achievement"><div class="medal">♛</div><b>Амбициозный</b><small>Титул получен</small></div>')}
+  save();render();celebrate(btn,add?'+'+fmt(add):'ГОТОВО');success();toast(add?'Ты поднялся! +'+fmt(add)+' к рейтингу':'Улучшение активировано');
  });
- $('#editNick').onclick=()=>{$('#nickInput').value=state.nick;$('#nickModal').style.display='flex'};
- $('#cancelNick').onclick=()=>$('#nickModal').style.display='none';
- $('#saveNick').onclick=()=>{const n=$('#nickInput').value.trim();if(!n){toast('Введи ник');return}state.nick=n;save();render();$('#nickModal').style.display='none';toast('Ник обновлён')};
- document.querySelectorAll('.buy').forEach(b=>b.onclick=()=>{
-  const cost=+b.dataset.cost,add=+b.dataset.add;if(state.balance<cost){toast('Не хватает виртуальных монет');return}
-  state.balance-=cost;state.score+=add;if(add)state.influence+=100;
-  if(cost===250){toast('Оформление добавлено в демо-профиль')}
-  else if(cost===400){state.achievements++;$('#achievements').insertAdjacentHTML('beforeend','<span class="achievement">✧ Амбициозный</span>');toast('Титул получен')}
-  else toast('Общий рейтинг вырос на '+add+' баллов');
-  save();render();if(add){celebrate(b,'+'+add);successSound()}else{celebrate(b,'ГОТОВО');tone(680,.16,'triangle',.03)}
- });
- $('#challengeBtn').onclick=()=>$('#modal').style.display='flex';
- $('#closeModal').onclick=()=>$('#modal').style.display='none';
- $('#sendChallenge').onclick=()=>{const n=$('#opponent').value.trim();if(!n){toast('Введи ник соперника');return}$('#modal').style.display='none';$('#opponent').value='';toast('Демо-вызов для '+n+' создан')};
- $('#shareBtn').onclick=()=>{
-  const url=location.href.split('#')[0]+'#profile';
-  if(navigator.share){navigator.share({title:'Мой профиль — РОССИЯ №1',text:state.nick+' · '+fmt(state.score)+' баллов',url}).catch(()=>{})}
-  else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>toast('Ссылка скопирована')).catch(()=>toast(url))}
-  else toast('Открой сайт по ссылке и поделись им');
- };
+ $('#saveProfile').onclick=()=>{let n=$('#nickField').value.trim();if(!n){toast('Введи ник');return}state.nick=n;save();render();success();toast('Профиль обновлён')};
+ $('#photoField').onchange=e=>{let f=e.target.files&&e.target.files[0];if(!f)return;if(!f.type.startsWith('image/')){toast('Выбери изображение');return}if(f.size>3*1024*1024){toast('Фото должно быть до 3 МБ');return}let rd=new FileReader();rd.onload=()=>{state.photo=rd.result;save();render();success();toast('Фото обновлено')};rd.readAsDataURL(f)};
+ $('#shareProfile').onclick=()=>{let url=location.href.split('#')[0];if(navigator.share)navigator.share({title:'Мой профиль — РОССИЯ №1',text:state.nick+' · '+fmt(state.score)+' баллов',url}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(url).then(()=>toast('Ссылка скопирована')).catch(()=>toast('Скопируй адрес сайта'));else toast('Скопируй адрес сайта')};
+ $('#closeModal').onclick=()=>$('#modalBack').style.display='none';
+ $('#sendChallenge').onclick=()=>{let n=$('#opponent').value.trim();if(!n){toast('Введи ник соперника');return}$('#modalBack').style.display='none';toast('Вызов для '+n+' подготовлен');success()};
+ // Prevent accidental double-tap zoom while preserving normal scrolling.
+ let lastTouch=0;document.addEventListener('touchend',e=>{let now=Date.now();if(now-lastTouch<300)e.preventDefault();lastTouch=now},{passive:false});
+ document.addEventListener('gesturestart',e=>e.preventDefault(),{passive:false});
  render();
+ if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 </script>
 </body>
