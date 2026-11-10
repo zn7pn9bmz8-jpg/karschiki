@@ -7,7 +7,6 @@
   const MIN_BET = 25;
   const MAX_BET = 1000000;
   const BALANCE_KEY = "karschiki_balance";
-  const REDEEMED_KEY = "karschiki_redeemed_promos_v1";
   const MAX_PROFILE_URL = "https://max.ru/u/f9LHodD0cOLneOcaWjEmFgBMwk43kHjgXIXkgV5Iri4Pyzd-kON9N1Y9ptg";
 
   // Звуки создаются через Web Audio API — отдельные аудиофайлы и сервер не нужны.
@@ -170,41 +169,14 @@
     if (clickedButton && !["soundToggle", "collect"].includes(clickedButton.id)) playUiSound();
   }, true);
 
-  // Промокоды для начисления виртуальных очков. Каждый код действует один раз в этом браузере.
-  const PROMO_CODES = {
-    "START5000": 5000,
-    "BONUS10000": 10000,
-    "KARSH25000": 25000,
-    "KARSH50000": 50000,
-    "KARSH100000": 100000,
-    "SHIFT5000": 5000,
-    "PALLET10000": 10000,
-    "FORKLIFT25000": 25000,
-    "TEAM50000": 50000,
-    "DRIVER100000": 100000,
-    "WORK5000": 5000,
-    "VILOCHNIK10000": 10000,
-    "KARSHIK25000": 25000,
-    "SMENA50000": 50000,
-    "ZAPUSK100000": 100000,
-    "PODDON5000": 5000,
-    "SPEED10000": 10000,
-    "SKLAD25000": 25000,
-    "BANDA50000": 50000,
-    "MASTER100000": 100000
-  };
+  // Любой непустой промокод начисляет фиксированное количество виртуальных очков.
+  const PROMO_AMOUNT = 10000;
 
   let balance = (() => {
     try {
       const saved = localStorage.getItem(BALANCE_KEY);
       return saved === null ? 68000 : Math.max(0, Number(saved) || 0);
     } catch (_) { return 68000; }
-  })();
-  let redeemed = (() => {
-    try {
-      const value = JSON.parse(localStorage.getItem(REDEEMED_KEY) || "[]");
-      return Array.isArray(value) ? value : [];
-    } catch (_) { return []; }
   })();
   let best = 0, active = false;
   let multiplier = 1, crashAt = 0, startTime = 0, raf = null, history = [];
@@ -244,7 +216,6 @@
   function render() {
     try {
       localStorage.setItem(BALANCE_KEY, String(balance));
-      localStorage.setItem(REDEEMED_KEY, JSON.stringify(redeemed));
     } catch (_) {
       $("hint").textContent = "Не удалось сохранить данные браузера.";
     }
@@ -257,13 +228,9 @@
     const message = $("promoMessage");
     const code = input.value.trim().toUpperCase();
     if (!code) { message.textContent = "Введи промокод."; return; }
-    const amount = PROMO_CODES[code];
-    if (!amount) { message.textContent = "Такого промокода нет."; return; }
-    if (redeemed.includes(code)) { message.textContent = "Этот промокод уже активирован в этом браузере."; return; }
-    balance += amount;
-    redeemed.push(code);
+    balance += PROMO_AMOUNT;
     render();
-    message.textContent = `Успешно! Начислено ${fmt(amount)} виртуальных очков.`;
+    message.textContent = `Успешно! Начислено ${fmt(PROMO_AMOUNT)} виртуальных очков.`;
     input.value = "";
   }
 
