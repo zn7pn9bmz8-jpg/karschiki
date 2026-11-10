@@ -198,7 +198,7 @@
   }
   function updatePotentialWin() {
     if (potentialWinEl) {
-      const value = active ? Math.max(0, Math.floor(BET * (Number(multiplier.toFixed(2)) - 1) * (5 / 6) + 1e-9)) : 0;
+      const value = active ? Math.max(0, Math.floor(BET * (Number(multiplier.toFixed(2)) - 1) + 1e-9)) : 0;
       potentialWinEl.textContent = fmt(value) + " ₽";
     }
   }
@@ -286,7 +286,7 @@
       // при 2.00x это ровно одна ставка, без повторного возврата самой ставки.
       // Используем тот же коэффициент с двумя знаками, который видит игрок.
       const settledMultiplier = Number(multiplier.toFixed(2));
-      const earned = Math.max(0, Math.floor(BET * (settledMultiplier - 1) * (5 / 6) + 1e-9));
+      const earned = Math.max(0, Math.floor(BET * (settledMultiplier - 1) + 1e-9));
       balance += earned;
       best = Math.max(best, settledMultiplier);
       $("status").textContent = `ЗАЧИСЛЕНО: +${fmt(earned)} РУБЛЕЙ`;
