@@ -230,7 +230,7 @@
     if (!code) { message.textContent = "Введи промокод."; return; }
     balance += PROMO_AMOUNT;
     render();
-    message.textContent = `Успешно! Начислено ${fmt(PROMO_AMOUNT)} виртуальных очков.`;
+    message.textContent = "Успешно! Начислено 10 тысяч рублей.";
     input.value = "";
   }
 
